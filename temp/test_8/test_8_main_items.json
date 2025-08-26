@@ -1,0 +1,36 @@
+{
+  "main_items": [
+    {
+      "line": 1,
+      "barcode": "45252060",
+      "description": "BH01-CFUX בוקסר עצם עקומה",
+      "quantity": 4.0,
+      "unit_price": 43.62,
+      "discount_percent": 25.01,
+      "total_amount": 130.84
+    },
+    {
+      "line": 2,
+      "barcode": "45252084",
+      "description": "BH01-CFNX בוקסר עצם עקומה",
+      "quantity": 1.0,
+      "unit_price": 43.62,
+      "discount_percent": 25.01,
+      "total_amount": 32.71
+    },
+    {
+      "line": 3,
+      "barcode": "45252053",
+      "description": "BH01-CBOX בוקסר עצם עקומה",
+      "quantity": 1.0,
+      "unit_price": 43.62,
+      "discount_percent": 25.01,
+      "total_amount": 32.71
+    }
+  ],
+  "summary": {
+    "total_lines": 3,
+    "subtotal": 196.26,
+    "total_after_vat": 230.0
+  }
+}

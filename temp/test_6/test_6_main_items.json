@@ -1,0 +1,101 @@
+{
+  "main_items": [
+    {
+      "line": 1,
+      "barcode": "4820083909140",
+      "description": "Club 4 Paws - חתולים אדולט עוף 14 ק\"ג",
+      "quantity": 4.0,
+      "unit_price": 179.0,
+      "total_amount": 716.0
+    },
+    {
+      "line": 2,
+      "barcode": "4820083909375",
+      "description": "Club 4 Paws - חתולים עיקור 14 ק\"ג",
+      "quantity": 2.0,
+      "unit_price": 179.0,
+      "total_amount": 358.0
+    },
+    {
+      "line": 3,
+      "barcode": "4820215369411",
+      "description": "Club 4 Paws - חתולים עיקור 2 ק\"ג",
+      "quantity": 3.0,
+      "unit_price": 0.0,
+      "total_amount": 0.0
+    },
+    {
+      "line": 4,
+      "barcode": "4820215368773",
+      "description": "Club 4 Paws - חתולים סנסטיב 2 ק\"ג",
+      "quantity": 3.0,
+      "unit_price": 0.0,
+      "total_amount": 0.0
+    },
+    {
+      "line": 5,
+      "barcode": "4820215369428",
+      "description": "Club 4 Paws - חתולים קירילס 2 ק\"ג",
+      "quantity": 2.0,
+      "unit_price": 0.0,
+      "total_amount": 0.0
+    },
+    {
+      "line": 6,
+      "barcode": "0693493277280",
+      "description": "חול סופר מתגבש לחתול 7 ליטר- לימון",
+      "quantity": 8.0,
+      "unit_price": 18.0,
+      "total_amount": 144.0
+    },
+    {
+      "line": 7,
+      "barcode": "0693493277266",
+      "description": "חול סופר מתגבש לחתול 7 ליטר-אורגינל ללא ריח",
+      "quantity": 8.0,
+      "unit_price": 18.0,
+      "total_amount": 144.0
+    },
+    {
+      "line": 8,
+      "barcode": "0693493277259",
+      "description": "חול סופר מתגבש לחתול 7 ליטר-פרחים",
+      "quantity": 8.0,
+      "unit_price": 18.0,
+      "total_amount": 144.0
+    },
+    {
+      "line": 9,
+      "barcode": "0693493277273",
+      "description": "חול סופר מתגבש לחתול 7 ליטר-טלק תינוקות",
+      "quantity": 4.0,
+      "unit_price": 18.0,
+      "total_amount": 72.0
+    },
+    {
+      "line": 10,
+      "barcode": "0693493277242",
+      "description": "חול סופר מתגבש לחתול 7 ליטר-לבנדר",
+      "quantity": 4.0,
+      "unit_price": 18.0,
+      "total_amount": 72.0
+    },
+    {
+      "line": 11,
+      "barcode": "4820083909207",
+      "description": "Club 4 Paws - חתולים אדולט עוף 14ק\"ג",
+      "quantity": 2.0,
+      "unit_price": 179.0,
+      "total_amount": 358.0
+    }
+  ],
+  "summary": {
+    "total_lines": 11,
+    "subtotal": 2008.0,
+    "discount_percent": 0.0186,
+    "discount_amount": 0.37,
+    "total_before_vat": 2007.63,
+    "vat_amount": 361.37,
+    "total_amount": 2369.0
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "success": true,
+  "processing_info": {
+    "file_path": "C:/projects/invoice2claude/temp/test_8/test_8.jpg",
+    "process_intro": true,
+    "process_main": true,
+    "use_ocr": false,
+    "start_time": "2025-08-11 00:30:52"
+  },
+  "intro": {
+    "invoice_info": {
+      "number": "10MD052.210005193",
+      "date": "18/11/21",
+      "type": "מקור",
+      "due_date": "",
+      "reference": "000212",
+      "currency": "ש״ח"
+    },
+    "company_info": {
+      "name": "י.ח.ד מדיוני בע״מ",
+      "address": "כרמל 3",
+      "city": "טל שחר",
+      "postal_code": "08-9340587",
+      "phone": "03-6056053",
+      "fax": "",
+      "email": "",
+      "website": "",
+      "tax_id": "513826552",
+      "business_license": ""
+    },
+    "customer_info": {
+      "name": "שחק - זו סנטר",
+      "address": "המלאכה 8",
+      "city": "איש קשר רותם",
+      "postal_code": "",
+      "phone": "050-5481118",
+      "email": "",
+      "tax_id": "558062881",
+      "contact_person": "אור יהודה"
+    },
+    "payment_terms": {
+      "due_date": "",
+      "payment_method": "",
+      "bank_details": "",
+      "credit_terms": "",
+      "notes": ""
+    },
+    "additional_info": {
+      "delivery_address": "",
+      "order_number": "",
+      "delivery_date": "",
+      "agent_name": "אסותי ירון",
+      "agent_phone": "",
+      "notes": "לקוחות יקרים, מחודש אוקטובר 2021 מוצרנו יהיו סגורים במע׳ שישי וערבי חג"
+    },
+    "metadata": {
+      "extracted_fields_count": 19,
+      "completeness_score": 54.3,
+      "analysis_timestamp": "2025-08-11 00:31:03"
+    }
+  },
+  "main": {
+    "main_items": [
+      {
+        "line": 1,
+        "item_code": "45252060",
+        "description": "BH01-CFUX בודקים עמוד עמודיה",
+        "quantity": 4.0,
+        "unit_price": 43.62,
+        "discount_percent": 25.01,
+        "price_after_discount": null,
+        "total_amount": 130.84
+      },
+      {
+        "line": 2,
+        "item_code": "45252084",
+        "description": "BH01-CPNX בודקים עמוד עמודיה",
+        "quantity": 1.0,
+        "unit_price": 43.62,
+        "discount_percent": 25.01,
+        "price_after_discount": null,
+        "total_amount": 32.71
+      },
+      {
+        "line": 3,
+        "item_code": "45252053",
+        "description": "BH01-CBOX בודקים עמוד עמודיה",
+        "quantity": 1.0,
+        "unit_price": 43.62,
+        "discount_percent": 25.01,
+        "price_after_discount": null,
+        "total_amount": 32.71
+      }
+    ],
+    "summary": {
+      "total_lines": 3,
+      "subtotal": 196.26,
+      "discount": -0.38,
+      "vat": 33.36,
+      "total_amount": 230.0
+    }
+  },
+  "summary": {
+    "processing_time_seconds": 19.42,
+    "processing_time_formatted": "19.4 שניות",
+    "processed_sections": [
+      "INTRO",
+      "MAIN"
+    ],
+    "intro_fields_extracted": 19,
+    "intro_completeness": 54.3,
+    "main_lines_extracted": 3,
+    "main_subtotal": 196.26,
+    "total_sections_processed": 2,
+    "analysis_timestamp": "2025-08-11 00:31:11"
+  }
+}

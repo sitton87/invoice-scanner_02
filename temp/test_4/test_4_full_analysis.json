@@ -1,0 +1,99 @@
+{
+  "success": true,
+  "processing_info": {
+    "file_path": "C:/projects/invoice2claude/temp/test_4/test_4.jpg",
+    "process_intro": true,
+    "process_main": true,
+    "use_ocr": false,
+    "start_time": "2025-08-11 00:31:30"
+  },
+  "intro": {
+    "invoice_info": {
+      "number": "18600",
+      "date": "12/06/2025",
+      "type": "חשבונית מס",
+      "due_date": "10/08/2025",
+      "reference": "515028397",
+      "currency": "₪"
+    },
+    "company_info": {
+      "name": "פטסלנד בע\"מ",
+      "address": "ברקן אזור 2 אזור תעשייה",
+      "city": "",
+      "postal_code": "",
+      "phone": "054-5286287",
+      "fax": "03-6968994",
+      "email": "",
+      "website": "",
+      "tax_id": "558062881",
+      "business_license": ""
+    },
+    "customer_info": {
+      "name": "שחק זו סטרו חרותם",
+      "address": "אור יהודה",
+      "city": "אור יהודה",
+      "postal_code": "",
+      "phone": "050-5481118",
+      "email": "",
+      "tax_id": "C27",
+      "contact_person": "ליאור לבוביץ"
+    },
+    "payment_terms": {
+      "due_date": "10/08/2025",
+      "payment_method": "שוטף 30",
+      "bank_details": "",
+      "credit_terms": "",
+      "notes": ""
+    },
+    "additional_info": {
+      "delivery_address": "",
+      "order_number": "",
+      "delivery_date": "",
+      "agent_name": "",
+      "agent_phone": "",
+      "notes": ""
+    },
+    "metadata": {
+      "extracted_fields_count": 19,
+      "completeness_score": 54.3,
+      "analysis_timestamp": "2025-08-11 00:31:42"
+    }
+  },
+  "main": {
+    "main_items": [
+      {
+        "line": 1,
+        "barcode": "643415865385",
+        "item_code": null,
+        "description": "מיטה חתת מים M",
+        "quantity": 2.0,
+        "unit_price": 103.7,
+        "discount_percent": 0.0,
+        "price_after_discount": 103.7,
+        "total_amount": 207.4
+      }
+    ],
+    "summary": {
+      "total_lines": 1,
+      "subtotal": 207.4,
+      "discount_amount": -0.23,
+      "total_after_discount": 207.63,
+      "vat_amount": 37.37,
+      "total_with_vat": 245.0
+    }
+  },
+  "summary": {
+    "processing_time_seconds": 18.3,
+    "processing_time_formatted": "18.3 שניות",
+    "processed_sections": [
+      "INTRO",
+      "MAIN"
+    ],
+    "intro_fields_extracted": 19,
+    "intro_completeness": 54.3,
+    "main_lines_extracted": 1,
+    "main_subtotal": 207.4,
+    "total_sections_processed": 2,
+    "analysis_timestamp": "2025-08-11 00:31:48"
+  }
+}

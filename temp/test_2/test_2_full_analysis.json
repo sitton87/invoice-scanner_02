@@ -1,0 +1,78 @@
+{
+  "success": true,
+  "processing_info": {
+    "file_path": "C:/projects/invoice2claude/temp/test_2/test_2.pdf",
+    "process_intro": true,
+    "process_main": true,
+    "use_ocr": true,
+    "start_time": "2025-08-24 21:04:16"
+  },
+  "intro": {
+    "invoice_info": {
+      "number": "90907",
+      "date": "17-07-2025",
+      "type": "חשבונית מס",
+      "due_date": "17-07-2025",
+      "reference": "59753",
+      "currency": "₪"
+    },
+    "company_info": {
+      "name": "אר- פור- פט (2012) בע\"מ",
+      "address": "גיסין 75, תא חלוקה 3389",
+      "city": "פתח - תקווה",
+      "postal_code": "4922412",
+      "phone": "03-5755007/054-9701950",
+      "fax": "03-6055644",
+      "email": "info@r4pet.co.il",
+      "website": "www.r4pet.co.il",
+      "tax_id": "514768290",
+      "business_license": ""
+    },
+    "customer_info": {
+      "name": "ארץ החיות",
+      "address": "רחוב מנחם בגין 38",
+      "city": "גדרה",
+      "postal_code": "",
+      "phone": "052-8796933",
+      "email": "",
+      "tax_id": "203429618",
+      "contact_person": ""
+    },
+    "payment_terms": {
+      "due_date": "17-07-2025",
+      "payment_method": "",
+      "bank_details": "",
+      "credit_terms": "",
+      "notes": ""
+    },
+    "additional_info": {
+      "delivery_address": "",
+      "order_number": "",
+      "delivery_date": "",
+      "agent_name": "",
+      "agent_phone": "",
+      "notes": ""
+    },
+    "metadata": {
+      "extracted_fields_count": 21,
+      "completeness_score": 60.0,
+      "analysis_timestamp": "2025-08-24 21:04:48"
+    }
+  },
+  "main": {
+    "error": "שגיאה בעיבוד MAIN מטקסט: Expecting ',' delimiter: line 36 column 5 (char 922)",
+    "message": "שגיאה בניתוח MAIN"
+  },
+  "summary": {
+    "processing_time_seconds": 41.64,
+    "processing_time_formatted": "41.6 שניות",
+    "processed_sections": [
+      "INTRO",
+      "MAIN"
+    ],
+    "intro_fields_extracted": 21,
+    "intro_completeness": 60.0,
+    "total_sections_processed": 2,
+    "analysis_timestamp": "2025-08-24 21:04:58"
+  }
+}

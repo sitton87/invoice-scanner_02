@@ -1,0 +1,78 @@
+{
+  "main_items": [
+    {
+      "line": 1,
+      "item_code": "ASPR550044",
+      "description": "פרופיל ספייס חיפוי זכוכית מדרכה 110 א (x50)",
+      "quantity": 1,
+      "unit_price": 45.0,
+      "discount_percent": 0,
+      "price_after_discount": 0,
+      "total_amount": 0.0
+    },
+    {
+      "line": 8,
+      "item_code": "ASPR550044",
+      "description": "פרופיל ספייס חיפוי זכוכית מדרכה 110 א (x50)",
+      "quantity": 1,
+      "unit_price": 105.0,
+      "discount_percent": 50.0,
+      "price_after_discount": 4.0,
+      "total_amount": 420.0
+    },
+    {
+      "line": 2,
+      "item_code": "ASPR560044",
+      "description": "פרופיל ספייס חיפוי זכוכית וילון פרטיס 110 א (x50)",
+      "quantity": 1,
+      "unit_price": 45.0,
+      "discount_percent": 0,
+      "price_after_discount": 0,
+      "total_amount": 0.0
+    },
+    {
+      "line": 6,
+      "item_code": "ASPR560044",
+      "description": "פרופיל ספייס חיפוי זכוכית וילון פרטיס 110 א (x50)",
+      "quantity": 1,
+      "unit_price": 105.0,
+      "discount_percent": 50.0,
+      "price_after_discount": 4.0,
+      "total_amount": 420.0
+    },
+    {
+      "line": 3,
+      "item_code": "ASPR570044",
+      "description": "פרופיל ספייס חיפוי זכוכית מקלחון 110 א (x50)",
+      "quantity": 1,
+      "unit_price": 45.0,
+      "discount_percent": 0,
+      "price_after_discount": 0,
+      "total_amount": 0.0
+    },
+    {
+      "line": 5,
+      "item_code": "ASPR570044",
+      "description": "פרופיל ספייס חיפוי זכוכית מקלחון פרטיס 110 א (x50)",
+      "quantity": 1,
+      "unit_price": 45.0,
+      "discount_percent": 0,
+      "price_after_discount": 0,
+      "total_amount": 0.0
+    },
+    {
+      "line": 4,
+      "item_code": "ASPR580044",
+      "description": "פרופיל ספייס חיפוי זכוכית מדי-ראן פרטיס 110 א (x50)",
+      "quantity": 1,
+      "unit_price": 105.0,
+      "discount_percent": 50.0,
+      "price_after_discount": 4.0,
+      "total_amount": 420.0
+    }
+  ],
+  "summary": {
+    "total_lines": 8,
+    "subtotal": 1680.0
+  }
+}

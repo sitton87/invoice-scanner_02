@@ -1,0 +1,184 @@
+{
+  "success": true,
+  "processing_info": {
+    "file_path": "C:/projects/invoice2claude/temp/test_3/test_3.pdf",
+    "process_intro": true,
+    "process_main": true,
+    "use_ocr": false,
+    "start_time": "2025-08-11 00:38:11"
+  },
+  "intro": {
+    "error": "שגיאה בניתוח INTRO: שגיאה בניתוח INTRO מתמונה: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Could not process image'}}",
+    "message": "שגיאה בניתוח INTRO"
+  },
+  "main": {
+    "main_items": [
+      {
+        "line": 1,
+        "item_code": "350512",
+        "description": "פרוטקט דפלקט חרש 12 קג",
+        "quantity": 8.0,
+        "unit_price": 232.17,
+        "discount_percent": 20.0,
+        "price_after_discount": 232.17,
+        "total_amount": 1114.44
+      },
+      {
+        "line": 2,
+        "item_code": "351512",
+        "description": "פרוטקט דפלקט 12 חרש",
+        "quantity": 4.0,
+        "unit_price": 232.17,
+        "discount_percent": 20.0,
+        "price_after_discount": 232.17,
+        "total_amount": 557.22
+      },
+      {
+        "line": 3,
+        "item_code": "1000009",
+        "description": "מדזינקס מכרסמים 20 קג",
+        "quantity": 5.0,
+        "unit_price": 68.66,
+        "discount_percent": 0.0,
+        "price_after_discount": 68.66,
+        "total_amount": 274.62
+      },
+      {
+        "line": 4,
+        "item_code": "1000008",
+        "description": "מדזינקס פרטימים 20 קג",
+        "quantity": 5.0,
+        "unit_price": 62.34,
+        "discount_percent": 0.0,
+        "price_after_discount": 62.34,
+        "total_amount": 249.38
+      },
+      {
+        "line": 5,
+        "item_code": "0000016",
+        "description": "מדזינקס חופשי מהיתר 20 קג",
+        "quantity": 3.0,
+        "unit_price": 90.17,
+        "discount_percent": 0.0,
+        "price_after_discount": 90.17,
+        "total_amount": 180.34
+      },
+      {
+        "line": 6,
+        "item_code": "0000012",
+        "description": "מדזינקס מקולקל מהיתר 20 קג",
+        "quantity": 2.0,
+        "unit_price": 89.74,
+        "discount_percent": 0.0,
+        "price_after_discount": 89.74,
+        "total_amount": 179.48
+      },
+      {
+        "line": 7,
+        "item_code": "1000014",
+        "description": "מדזינקס חופי נהיג 15 קג",
+        "quantity": 2.0,
+        "unit_price": 85.67,
+        "discount_percent": 20.0,
+        "price_after_discount": 85.67,
+        "total_amount": 137.08
+      },
+      {
+        "line": 8,
+        "item_code": "1000154",
+        "description": "מדזינקס חופים מכרסם גרם 800",
+        "quantity": 15.0,
+        "unit_price": 10.1,
+        "discount_percent": 35.04,
+        "price_after_discount": 10.1,
+        "total_amount": 98.4
+      },
+      {
+        "line": 9,
+        "item_code": "1000164",
+        "description": "מדזינקס חופים גדולים 3.6 קג",
+        "quantity": 4.0,
+        "unit_price": 34.72,
+        "discount_percent": 34.99,
+        "price_after_discount": 34.72,
+        "total_amount": 90.28
+      },
+      {
+        "line": 10,
+        "item_code": "1000156",
+        "description": "מדזינקס מכרסמים משופר 1 קג",
+        "quantity": 15.0,
+        "unit_price": 6.82,
+        "discount_percent": 35.01,
+        "price_after_discount": 6.82,
+        "total_amount": 66.45
+      },
+      {
+        "line": 11,
+        "item_code": "1000155",
+        "description": "מדזינקס מכרסמים 1 קג",
+        "quantity": 15.0,
+        "unit_price": 5.83,
+        "discount_percent": 35.01,
+        "price_after_discount": 5.83,
+        "total_amount": 56.85
+      },
+      {
+        "line": 12,
+        "item_code": "1000166",
+        "description": "מדזינקס מכרסמים משופר 4 קג",
+        "quantity": 4.0,
+        "unit_price": 24.63,
+        "discount_percent": 35.0,
+        "price_after_discount": 24.63,
+        "total_amount": 64.04
+      },
+      {
+        "line": 13,
+        "item_code": "1000165",
+        "description": "מדזינקס מכרסמים 4 קג",
+        "quantity": 4.0,
+        "unit_price": 20.83,
+        "discount_percent": 34.99,
+        "price_after_discount": 20.83,
+        "total_amount": 54.16
+      },
+      {
+        "line": 14,
+        "item_code": "54952705",
+        "description": "Nestor-מאבק שחורים פטורים לבן מיכל",
+        "quantity": 4.0,
+        "unit_price": 78.91,
+        "discount_percent": 30.0,
+        "price_after_discount": 78.91,
+        "total_amount": 220.96
+      },
+      {
+        "line": 15,
+        "item_code": "54002227",
+        "description": "Nestor מאבק שחורים פטורים לבן שחור",
+        "quantity": 4.0,
+        "unit_price": 78.91,
+        "discount_percent": 30.0,
+        "price_after_discount": 78.91,
+        "total_amount": 165.72
+      }
+    ],
+    "summary": {
+      "total_lines": 15,
+      "subtotal": 3509.42
+    }
+  },
+  "summary": {
+    "processing_time_seconds": 28.74,
+    "processing_time_formatted": "28.7 שניות",
+    "processed_sections": [
+      "INTRO",
+      "MAIN"
+    ],
+    "main_lines_extracted": 15,
+    "main_subtotal": 3509.42,
+    "total_sections_processed": 2,
+    "analysis_timestamp": "2025-08-11 00:38:40"
+  }
+}

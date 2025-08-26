@@ -1,0 +1,23 @@
+{
+  "main_items": [
+    {
+      "line": 1,
+      "barcode": "643415865385",
+      "item_code": null,
+      "description": "מיטה חתת מים M",
+      "quantity": 2.0,
+      "unit_price": 103.7,
+      "discount_percent": 0.0,
+      "price_after_discount": 103.7,
+      "total_amount": 207.4
+    }
+  ],
+  "summary": {
+    "total_lines": 1,
+    "subtotal": 207.4,
+    "discount_amount": -0.23,
+    "total_after_discount": 207.63,
+    "vat_amount": 37.37,
+    "total_with_vat": 245.0
+  }
+}

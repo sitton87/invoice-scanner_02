@@ -1,0 +1,41 @@
+{
+  "main_items": [
+    {
+      "line": 1,
+      "item_code": "45252060",
+      "description": "BH01-CFUX בודקים עמוד עמודיה",
+      "quantity": 4.0,
+      "unit_price": 43.62,
+      "discount_percent": 25.01,
+      "price_after_discount": null,
+      "total_amount": 130.84
+    },
+    {
+      "line": 2,
+      "item_code": "45252084",
+      "description": "BH01-CPNX בודקים עמוד עמודיה",
+      "quantity": 1.0,
+      "unit_price": 43.62,
+      "discount_percent": 25.01,
+      "price_after_discount": null,
+      "total_amount": 32.71
+    },
+    {
+      "line": 3,
+      "item_code": "45252053",
+      "description": "BH01-CBOX בודקים עמוד עמודיה",
+      "quantity": 1.0,
+      "unit_price": 43.62,
+      "discount_percent": 25.01,
+      "price_after_discount": null,
+      "total_amount": 32.71
+    }
+  ],
+  "summary": {
+    "total_lines": 3,
+    "subtotal": 196.26,
+    "discount": -0.38,
+    "vat": 33.36,
+    "total_amount": 230.0
+  }
+}

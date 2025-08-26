@@ -1,0 +1,308 @@
+{
+  "main_items": [
+    {
+      "line": 1,
+      "barcode": "7290533272772",
+      "description": "אוזן אדומה לכלב מזון מעושן 750",
+      "quantity": 3.0,
+      "unit_price": 55.9,
+      "discount_percent": 30.0,
+      "price_after_discount": 39.9,
+      "total_amount": 115.5
+    },
+    {
+      "line": 2,
+      "barcode": "694213336182",
+      "description": "עצמות לכלב ג'קו ג'וינט מובחר",
+      "quantity": 12.0,
+      "unit_price": 8.0,
+      "discount_percent": 40.0,
+      "price_after_discount": 4.8,
+      "total_amount": 64.08
+    },
+    {
+      "line": 3,
+      "barcode": "3428460081147",
+      "description": "אקזמה לכלב סנסיבל דגים",
+      "quantity": 44.0,
+      "unit_price": 5.4,
+      "discount_percent": 50.0,
+      "price_after_discount": 2.7,
+      "total_amount": 118.8
+    },
+    {
+      "line": 4,
+      "barcode": "3428460048597",
+      "description": "עצמות דנטלי לכלב חטיף",
+      "quantity": 22.0,
+      "unit_price": 4.4,
+      "discount_percent": 50.0,
+      "price_after_discount": 2.2,
+      "total_amount": 48.4
+    },
+    {
+      "line": 5,
+      "barcode": "694213312183",
+      "description": "עצמות לכסו - פיצה לכרסום",
+      "quantity": 8.0,
+      "unit_price": 5.0,
+      "discount_percent": 40.0,
+      "price_after_discount": 3.0,
+      "total_amount": 24.0
+    },
+    {
+      "line": 6,
+      "barcode": "694213312145",
+      "description": "עצמות לכסו - פיצה לכרסום",
+      "quantity": 8.0,
+      "unit_price": 5.0,
+      "discount_percent": 40.0,
+      "price_after_discount": 3.0,
+      "total_amount": 24.0
+    },
+    {
+      "line": 7,
+      "barcode": "5210202821430",
+      "description": "שמפו צמחים לכלב",
+      "quantity": 6.0,
+      "unit_price": 9.9,
+      "discount_percent": 0.0,
+      "price_after_discount": 9.9,
+      "total_amount": 59.4
+    },
+    {
+      "line": 8,
+      "barcode": "5210202821386",
+      "description": "מברשת פרווה לכלב ולחתול",
+      "quantity": 4.0,
+      "unit_price": 29.5,
+      "discount_percent": 100.0,
+      "price_after_discount": 0.0,
+      "total_amount": 0.0
+    },
+    {
+      "line": 9,
+      "barcode": "694213312029",
+      "description": "חטיף לכלב בקר חצי ירח",
+      "quantity": 4.0,
+      "unit_price": 29.5,
+      "discount_percent": 30.0,
+      "price_after_discount": 20.65,
+      "total_amount": 82.6
+    },
+    {
+      "line": 10,
+      "barcode": "694213300814",
+      "description": "חטיף לכלב בקר חצי ירח",
+      "quantity": 5.0,
+      "unit_price": 19.9,
+      "discount_percent": 25.0,
+      "price_after_discount": 14.92,
+      "total_amount": 74.62
+    },
+    {
+      "line": 11,
+      "barcode": "193864001013",
+      "description": "סוויטי דג בריא אגם",
+      "quantity": 5.0,
+      "unit_price": 28.0,
+      "discount_percent": 30.0,
+      "price_after_discount": 19.6,
+      "total_amount": 98.0
+    },
+    {
+      "line": 12,
+      "barcode": "193864001020",
+      "description": "סוויטי דג בריא פורל",
+      "quantity": 5.0,
+      "unit_price": 28.0,
+      "discount_percent": 30.0,
+      "price_after_discount": 19.6,
+      "total_amount": 98.0
+    },
+    {
+      "line": 13,
+      "barcode": "193864001037",
+      "description": "סוויטי דג בריא טונה",
+      "quantity": 5.0,
+      "unit_price": 28.0,
+      "discount_percent": 30.0,
+      "price_after_discount": 19.6,
+      "total_amount": 98.0
+    },
+    {
+      "line": 14,
+      "barcode": "694213336182",
+      "description": "עצמות לכלב ג'קו ג'וינט מובחר",
+      "quantity": 5.0,
+      "unit_price": 16.5,
+      "discount_percent": 25.0,
+      "price_after_discount": 12.38,
+      "total_amount": 61.88
+    },
+    {
+      "line": 15,
+      "barcode": "193860530180",
+      "description": "חטיף לכלב עוגיות בריאות 32",
+      "quantity": 30.0,
+      "unit_price": 33.0,
+      "discount_percent": 50.0,
+      "price_after_discount": 16.5,
+      "total_amount": 495.0
+    },
+    {
+      "line": 16,
+      "barcode": "193862301012",
+      "description": "עצמות לכלבים לעיסה בצל 16",
+      "quantity": 12.0,
+      "unit_price": 11.0,
+      "discount_percent": 30.0,
+      "price_after_discount": 7.7,
+      "total_amount": 92.4
+    },
+    {
+      "line": 17,
+      "barcode": "6921499711793",
+      "description": "חטיף לכלב Duck filet on chewy",
+      "quantity": 20.0,
+      "unit_price": 9.3,
+      "discount_percent": 40.0,
+      "price_after_discount": 5.58,
+      "total_amount": 111.6
+    },
+    {
+      "line": 18,
+      "barcode": "6921499711786",
+      "description": "חטיף לעיסה - Dog Hot Puppy",
+      "quantity": 10.0,
+      "unit_price": 9.3,
+      "discount_percent": 40.0,
+      "price_after_discount": 5.58,
+      "total_amount": 55.8
+    },
+    {
+      "line": 19,
+      "barcode": "6921499710307",
+      "description": "חטיף לעיסה - Dog Hot Puppy",
+      "quantity": 10.0,
+      "unit_price": 9.3,
+      "discount_percent": 40.0,
+      "price_after_discount": 5.58,
+      "total_amount": 55.8
+    },
+    {
+      "line": 20,
+      "barcode": "8424160024973",
+      "description": "דיבון - בולי בקר בינוני 15 גר",
+      "quantity": 1.0,
+      "unit_price": 205.0,
+      "discount_percent": 30.0,
+      "price_after_discount": 143.5,
+      "total_amount": 143.5
+    },
+    {
+      "line": 21,
+      "barcode": "8424160025000",
+      "description": "דיבון - בולי חזיר בינוני 15 גר",
+      "quantity": 3.0,
+      "unit_price": 215.0,
+      "discount_percent": 30.0,
+      "price_after_discount": 150.5,
+      "total_amount": 451.5
+    },
+    {
+      "line": 22,
+      "barcode": "8424160025024",
+      "description": "דיבון - בולי כבש בינוני 15 גר",
+      "quantity": 1.0,
+      "unit_price": 215.0,
+      "discount_percent": 30.0,
+      "price_after_discount": 150.5,
+      "total_amount": 150.5
+    },
+    {
+      "line": 23,
+      "barcode": "8424160028711",
+      "description": "דיבון - בולי פרו מרין כוכבים",
+      "quantity": 2.0,
+      "unit_price": 285.0,
+      "discount_percent": 30.0,
+      "price_after_discount": 199.5,
+      "total_amount": 399.0
+    },
+    {
+      "line": 24,
+      "barcode": "8424160028704",
+      "description": "דיבון חטיף בקר סלמון",
+      "quantity": 1.0,
+      "unit_price": 259.0,
+      "discount_percent": 30.0,
+      "price_after_discount": 181.3,
+      "total_amount": 181.3
+    },
+    {
+      "line": 25,
+      "barcode": "193860291211",
+      "description": "מנצ'יס לחתולים בטעם בשר",
+      "quantity": 12.0,
+      "unit_price": 79.0,
+      "discount_percent": 0.0,
+      "price_after_discount": 79.0,
+      "total_amount": 948.0
+    },
+    {
+      "line": 26,
+      "barcode": "193860333747",
+      "description": "עצמות לנקיון שיניים בטעם וניל",
+      "quantity": 24.0,
+      "unit_price": 45.0,
+      "discount_percent": 100.0,
+      "price_after_discount": 0.0,
+      "total_amount": 0.0
+    },
+    {
+      "line": 27,
+      "barcode": "0193862426214",
+      "description": "מזרן חום 100% כותנה אפורה",
+      "quantity": 1.0,
+      "unit_price": 145.0,
+      "discount_percent": 0.0,
+      "price_after_discount": 145.0,
+      "total_amount": 145.0
+    },
+    {
+      "line": 28,
+      "barcode": "0193862426208",
+      "description": "מזרן חום 100% כותנה אפורה",
+      "quantity": 1.0,
+      "unit_price": 145.0,
+      "discount_percent": 0.0,
+      "price_after_discount": 145.0,
+      "total_amount": 145.0
+    },
+    {
+      "line": 29,
+      "barcode": "0193862426214",
+      "description": "מזרן חום 100% כותנה שחורה",
+      "quantity": 1.0,
+      "unit_price": 145.0,
+      "discount_percent": 0.0,
+      "price_after_discount": 145.0,
+      "total_amount": 145.0
+    },
+    {
+      "line": 30,
+      "barcode": "0193862426214",
+      "description": "מזרן חום 100% כותנה שחורה",
+      "quantity": 1.0,
+      "unit_price": 145.0,
+      "discount_percent": 100.0,
+      "price_after_discount": 0.0,
+      "total_amount": 0.0
+    }
+  ],
+  "summary": {
+    "total_lines": 30,
+    "subtotal": 4486.44
+  }
+}

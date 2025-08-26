@@ -1,0 +1,177 @@
+{
+  "success": true,
+  "processing_info": {
+    "file_path": "C:/projects/invoice2claude/temp/test_6/test_6.jpg",
+    "process_intro": true,
+    "process_main": true,
+    "use_ocr": false,
+    "start_time": "2025-08-11 00:35:09"
+  },
+  "intro": {
+    "invoice_info": {
+      "number": "01/032069",
+      "date": "03/06/2025",
+      "type": "חשבונית מס",
+      "due_date": "03/06/25",
+      "reference": "00930",
+      "currency": "₪"
+    },
+    "company_info": {
+      "name": "A.A.FRAIBERG IMPORT LTD",
+      "address": "הנחל 27 קרני שומרון",
+      "city": "קרני שומרון",
+      "postal_code": "",
+      "phone": "054-4784927",
+      "fax": "09-7941286",
+      "email": "",
+      "website": "www.rivhit.co.il",
+      "tax_id": "513698860",
+      "business_license": ""
+    },
+    "customer_info": {
+      "name": "אור יהודה",
+      "address": "",
+      "city": "",
+      "postal_code": "",
+      "phone": "054-4892014",
+      "email": "",
+      "tax_id": "558062881",
+      "contact_person": ""
+    },
+    "payment_terms": {
+      "due_date": "",
+      "payment_method": "",
+      "bank_details": "",
+      "credit_terms": "",
+      "notes": ""
+    },
+    "additional_info": {
+      "delivery_address": "",
+      "order_number": "",
+      "delivery_date": "",
+      "agent_name": "",
+      "agent_phone": "0505054811118",
+      "notes": ""
+    },
+    "metadata": {
+      "extracted_fields_count": 17,
+      "completeness_score": 48.6,
+      "analysis_timestamp": "2025-08-11 00:35:18"
+    }
+  },
+  "main": {
+    "main_items": [
+      {
+        "line": 1,
+        "barcode": "4820083909140",
+        "description": "Club 4 Paws - חתולים אדולט עוף 14 ק\"ג",
+        "quantity": 4.0,
+        "unit_price": 179.0,
+        "total_amount": 716.0
+      },
+      {
+        "line": 2,
+        "barcode": "4820083909375",
+        "description": "Club 4 Paws - חתולים עיקור 14 ק\"ג",
+        "quantity": 2.0,
+        "unit_price": 179.0,
+        "total_amount": 358.0
+      },
+      {
+        "line": 3,
+        "barcode": "4820215369411",
+        "description": "Club 4 Paws - חתולים עיקור 2 ק\"ג",
+        "quantity": 3.0,
+        "unit_price": 0.0,
+        "total_amount": 0.0
+      },
+      {
+        "line": 4,
+        "barcode": "4820215368773",
+        "description": "Club 4 Paws - חתולים סנסטיב 2 ק\"ג",
+        "quantity": 3.0,
+        "unit_price": 0.0,
+        "total_amount": 0.0
+      },
+      {
+        "line": 5,
+        "barcode": "4820215369428",
+        "description": "Club 4 Paws - חתולים קירילס 2 ק\"ג",
+        "quantity": 2.0,
+        "unit_price": 0.0,
+        "total_amount": 0.0
+      },
+      {
+        "line": 6,
+        "barcode": "0693493277280",
+        "description": "חול סופר מתגבש לחתול 7 ליטר- לימון",
+        "quantity": 8.0,
+        "unit_price": 18.0,
+        "total_amount": 144.0
+      },
+      {
+        "line": 7,
+        "barcode": "0693493277266",
+        "description": "חול סופר מתגבש לחתול 7 ליטר-אורגינל ללא ריח",
+        "quantity": 8.0,
+        "unit_price": 18.0,
+        "total_amount": 144.0
+      },
+      {
+        "line": 8,
+        "barcode": "0693493277259",
+        "description": "חול סופר מתגבש לחתול 7 ליטר-פרחים",
+        "quantity": 8.0,
+        "unit_price": 18.0,
+        "total_amount": 144.0
+      },
+      {
+        "line": 9,
+        "barcode": "0693493277273",
+        "description": "חול סופר מתגבש לחתול 7 ליטר-טלק תינוקות",
+        "quantity": 4.0,
+        "unit_price": 18.0,
+        "total_amount": 72.0
+      },
+      {
+        "line": 10,
+        "barcode": "0693493277242",
+        "description": "חול סופר מתגבש לחתול 7 ליטר-לבנדר",
+        "quantity": 4.0,
+        "unit_price": 18.0,
+        "total_amount": 72.0
+      },
+      {
+        "line": 11,
+        "barcode": "4820083909207",
+        "description": "Club 4 Paws - חתולים אדולט עוף 14ק\"ג",
+        "quantity": 2.0,
+        "unit_price": 179.0,
+        "total_amount": 358.0
+      }
+    ],
+    "summary": {
+      "total_lines": 11,
+      "subtotal": 2008.0,
+      "discount_percent": 0.0186,
+      "discount_amount": 0.37,
+      "total_before_vat": 2007.63,
+      "vat_amount": 361.37,
+      "total_amount": 2369.0
+    }
+  },
+  "summary": {
+    "processing_time_seconds": 26.72,
+    "processing_time_formatted": "26.7 שניות",
+    "processed_sections": [
+      "INTRO",
+      "MAIN"
+    ],
+    "intro_fields_extracted": 17,
+    "intro_completeness": 48.6,
+    "main_lines_extracted": 11,
+    "main_subtotal": 2008.0,
+    "total_sections_processed": 2,
+    "analysis_timestamp": "2025-08-11 00:35:36"
+  }
+}

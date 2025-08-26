@@ -1,0 +1,115 @@
+{
+  "main_items": [
+    {
+      "line": 1,
+      "barcode": "649870164018",
+      "description": "שקית לאיסוף צרכים (16 * 20) שחור",
+      "quantity": 12.0,
+      "unit_price": 14.9,
+      "total_amount": 178.8
+    },
+    {
+      "line": 2,
+      "barcode": "649870164032",
+      "description": "שקית לאיסוף צרכים (16 * 20) צבעוני",
+      "quantity": 12.0,
+      "unit_price": 14.9,
+      "total_amount": 178.8
+    },
+    {
+      "line": 3,
+      "barcode": "8053017342771",
+      "description": "שימורי OASY CAPRICE גורס עוף 85גר 18מ",
+      "quantity": 72.0,
+      "unit_price": 2.4,
+      "total_amount": 172.8
+    },
+    {
+      "line": 4,
+      "barcode": "8053017342795",
+      "description": "שימורי OASY CAPRICE בקר 85גר 18מ",
+      "quantity": 180.0,
+      "unit_price": 2.4,
+      "total_amount": 432.0
+    },
+    {
+      "line": 5,
+      "barcode": "8053017342832",
+      "description": "שימורי OASY CAPRICE עגל 85גר 18מ",
+      "quantity": 72.0,
+      "unit_price": 2.4,
+      "total_amount": 172.8
+    },
+    {
+      "line": 6,
+      "barcode": "8053017342856",
+      "description": "שימורי OASY CAPRICE סלמון 85גר 18מ",
+      "quantity": 72.0,
+      "unit_price": 2.4,
+      "total_amount": 172.8
+    },
+    {
+      "line": 7,
+      "barcode": "8053017342870",
+      "description": "שימורי OASY CAPRICE חזה 85גר 18מ",
+      "quantity": 72.0,
+      "unit_price": 2.4,
+      "total_amount": 172.8
+    },
+    {
+      "line": 8,
+      "barcode": "8053017342894",
+      "description": "שימורי OASY CAPRICE טונה 85גר 18מ",
+      "quantity": 72.0,
+      "unit_price": 2.4,
+      "total_amount": 172.8
+    },
+    {
+      "line": 9,
+      "barcode": "8053017342917",
+      "description": "שימורי OASY CAPRICE דגי אוקיינוס 85גר 18מ",
+      "quantity": 72.0,
+      "unit_price": 2.4,
+      "total_amount": 172.8
+    },
+    {
+      "line": 10,
+      "barcode": "8053017343549",
+      "description": "שימורי OASY CAPRICE ארנבת 85גר 18מ",
+      "quantity": 72.0,
+      "unit_price": 2.4,
+      "total_amount": 172.8
+    },
+    {
+      "line": 11,
+      "barcode": "8053017343563",
+      "description": "שימורי OASY CAPRICE כבד 85גר 18מ",
+      "quantity": 72.0,
+      "unit_price": 2.4,
+      "total_amount": 172.8
+    },
+    {
+      "line": 12,
+      "barcode": "8053017343587",
+      "description": "שימורי OASY CAPRICE טרוף 85גר 18מ",
+      "quantity": 72.0,
+      "unit_price": 2.4,
+      "total_amount": 172.8
+    },
+    {
+      "line": 13,
+      "barcode": "8054329512036",
+      "description": "שימורי OASY CAPRICE גורס סלמון 85גר 18מ",
+      "quantity": 72.0,
+      "unit_price": 2.4,
+      "total_amount": 172.8
+    }
+  ],
+  "summary": {
+    "total_lines": 13,
+    "subtotal": 2517.6,
+    "discount": 0.2,
+    "vat": 453.2,
+    "total_amount": 2971.0
+  }
+}

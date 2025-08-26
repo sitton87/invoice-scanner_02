@@ -1,0 +1,154 @@
+{
+  "success": true,
+  "processing_info": {
+    "file_path": "C:/projects/invoice2claude/temp/test_9/WhatsApp Image 2025-08-24 at 21.09.14_7552b7fe.jpg",
+    "process_intro": true,
+    "process_main": true,
+    "use_ocr": false,
+    "start_time": "2025-08-26 12:24:52"
+  },
+  "intro": {
+    "invoice_info": {
+      "number": "IN250005072",
+      "date": "25/07/09",
+      "type": "חשבונית מס",
+      "due_date": "25/07/10",
+      "reference": "",
+      "currency": "₪"
+    },
+    "company_info": {
+      "name": "Spets",
+      "address": "רח' דרך נחף 14",
+      "city": "",
+      "postal_code": "12115",
+      "phone": "04-6303000",
+      "fax": "04-6303009",
+      "email": "",
+      "website": "http://www.spets.co.il",
+      "tax_id": "512478645",
+      "business_license": ""
+    },
+    "customer_info": {
+      "name": "שלוק זו סופר",
+      "address": "המלאכה 8",
+      "city": "אור יהודה",
+      "postal_code": "6037208",
+      "phone": "050-5481118",
+      "email": "",
+      "tax_id": "104793",
+      "contact_person": ""
+    },
+    "payment_terms": {
+      "due_date": "25/11/10",
+      "payment_method": "",
+      "bank_details": "",
+      "credit_terms": "",
+      "notes": ""
+    },
+    "additional_info": {
+      "delivery_address": "",
+      "order_number": "",
+      "delivery_date": "",
+      "agent_name": "",
+      "agent_phone": "",
+      "notes": ""
+    },
+    "metadata": {
+      "extracted_fields_count": 19,
+      "completeness_score": 54.3,
+      "analysis_timestamp": "2025-08-26 12:25:01"
+    }
+  },
+  "main": {
+    "main_items": [
+      {
+        "line": 1,
+        "item_code": "ASPR550044",
+        "description": "פרופיל ספייס חיפוי זכוכית מדרכה 110 א (x50)",
+        "quantity": 1,
+        "unit_price": 45.0,
+        "discount_percent": 0,
+        "price_after_discount": 0,
+        "total_amount": 0.0
+      },
+      {
+        "line": 8,
+        "item_code": "ASPR550044",
+        "description": "פרופיל ספייס חיפוי זכוכית מדרכה 110 א (x50)",
+        "quantity": 1,
+        "unit_price": 105.0,
+        "discount_percent": 50.0,
+        "price_after_discount": 4.0,
+        "total_amount": 420.0
+      },
+      {
+        "line": 2,
+        "item_code": "ASPR560044",
+        "description": "פרופיל ספייס חיפוי זכוכית וילון פרטיס 110 א (x50)",
+        "quantity": 1,
+        "unit_price": 45.0,
+        "discount_percent": 0,
+        "price_after_discount": 0,
+        "total_amount": 0.0
+      },
+      {
+        "line": 6,
+        "item_code": "ASPR560044",
+        "description": "פרופיל ספייס חיפוי זכוכית וילון פרטיס 110 א (x50)",
+        "quantity": 1,
+        "unit_price": 105.0,
+        "discount_percent": 50.0,
+        "price_after_discount": 4.0,
+        "total_amount": 420.0
+      },
+      {
+        "line": 3,
+        "item_code": "ASPR570044",
+        "description": "פרופיל ספייס חיפוי זכוכית מקלחון 110 א (x50)",
+        "quantity": 1,
+        "unit_price": 45.0,
+        "discount_percent": 0,
+        "price_after_discount": 0,
+        "total_amount": 0.0
+      },
+      {
+        "line": 5,
+        "item_code": "ASPR570044",
+        "description": "פרופיל ספייס חיפוי זכוכית מקלחון פרטיס 110 א (x50)",
+        "quantity": 1,
+        "unit_price": 45.0,
+        "discount_percent": 0,
+        "price_after_discount": 0,
+        "total_amount": 0.0
+      },
+      {
+        "line": 4,
+        "item_code": "ASPR580044",
+        "description": "פרופיל ספייס חיפוי זכוכית מדי-ראן פרטיס 110 א (x50)",
+        "quantity": 1,
+        "unit_price": 105.0,
+        "discount_percent": 50.0,
+        "price_after_discount": 4.0,
+        "total_amount": 420.0
+      }
+    ],
+    "summary": {
+      "total_lines": 8,
+      "subtotal": 1680.0
+    }
+  },
+  "summary": {
+    "processing_time_seconds": 22.82,
+    "processing_time_formatted": "22.8 שניות",
+    "processed_sections": [
+      "INTRO",
+      "MAIN"
+    ],
+    "intro_fields_extracted": 19,
+    "intro_completeness": 54.3,
+    "main_lines_extracted": 8,
+    "main_subtotal": 1680.0,
+    "total_sections_processed": 2,
+    "analysis_timestamp": "2025-08-26 12:25:15"
+  }
+}

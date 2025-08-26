@@ -1,0 +1,191 @@
+{
+  "success": true,
+  "processing_info": {
+    "file_path": "C:/projects/invoice2claude/temp/test_7/test_7.jpg",
+    "process_intro": true,
+    "process_main": true,
+    "use_ocr": false,
+    "start_time": "2025-08-26 12:44:52"
+  },
+  "intro": {
+    "invoice_info": {
+      "number": "19307",
+      "date": "09/07/2025",
+      "type": "חשבונית מס",
+      "due_date": "10/09/2025",
+      "reference": "",
+      "currency": "₪"
+    },
+    "company_info": {
+      "name": "פטסלנד בע\"מ",
+      "address": "ברקן אלמוג 2 אזור תעשיה",
+      "city": "",
+      "postal_code": "",
+      "phone": "054-5286287",
+      "fax": "03-6968994",
+      "email": "",
+      "website": "",
+      "tax_id": "515028397",
+      "business_license": ""
+    },
+    "customer_info": {
+      "name": "אור יהודה",
+      "address": "המלאכה 8",
+      "city": "אור יהודה",
+      "postal_code": "",
+      "phone": "050-5481118",
+      "email": "",
+      "tax_id": "558062881",
+      "contact_person": ""
+    },
+    "payment_terms": {
+      "due_date": "10/09/2025",
+      "payment_method": "שוטף 30",
+      "bank_details": "",
+      "credit_terms": "",
+      "notes": ""
+    },
+    "additional_info": {
+      "delivery_address": "",
+      "order_number": "",
+      "delivery_date": "",
+      "agent_name": "ליאור לבקוביץ",
+      "agent_phone": "",
+      "notes": ""
+    },
+    "metadata": {
+      "extracted_fields_count": 18,
+      "completeness_score": 51.4,
+      "analysis_timestamp": "2025-08-26 12:45:01"
+    }
+  },
+  "main": {
+    "main_items": [
+      {
+        "line": 1,
+        "barcode": "649870164018",
+        "description": "שקית לאיסוף צרכים (16 * 20) שחור",
+        "quantity": 12.0,
+        "unit_price": 14.9,
+        "total_amount": 178.8
+      },
+      {
+        "line": 2,
+        "barcode": "649870164032",
+        "description": "שקית לאיסוף צרכים (16 * 20) צבעוני",
+        "quantity": 12.0,
+        "unit_price": 14.9,
+        "total_amount": 178.8
+      },
+      {
+        "line": 3,
+        "barcode": "8053017342771",
+        "description": "שימורי OASY CAPRICE גורס עוף 85גר 18מ",
+        "quantity": 72.0,
+        "unit_price": 2.4,
+        "total_amount": 172.8
+      },
+      {
+        "line": 4,
+        "barcode": "8053017342795",
+        "description": "שימורי OASY CAPRICE בקר 85גר 18מ",
+        "quantity": 180.0,
+        "unit_price": 2.4,
+        "total_amount": 432.0
+      },
+      {
+        "line": 5,
+        "barcode": "8053017342832",
+        "description": "שימורי OASY CAPRICE עגל 85גר 18מ",
+        "quantity": 72.0,
+        "unit_price": 2.4,
+        "total_amount": 172.8
+      },
+      {
+        "line": 6,
+        "barcode": "8053017342856",
+        "description": "שימורי OASY CAPRICE סלמון 85גר 18מ",
+        "quantity": 72.0,
+        "unit_price": 2.4,
+        "total_amount": 172.8
+      },
+      {
+        "line": 7,
+        "barcode": "8053017342870",
+        "description": "שימורי OASY CAPRICE חזה 85גר 18מ",
+        "quantity": 72.0,
+        "unit_price": 2.4,
+        "total_amount": 172.8
+      },
+      {
+        "line": 8,
+        "barcode": "8053017342894",
+        "description": "שימורי OASY CAPRICE טונה 85גר 18מ",
+        "quantity": 72.0,
+        "unit_price": 2.4,
+        "total_amount": 172.8
+      },
+      {
+        "line": 9,
+        "barcode": "8053017342917",
+        "description": "שימורי OASY CAPRICE דגי אוקיינוס 85גר 18מ",
+        "quantity": 72.0,
+        "unit_price": 2.4,
+        "total_amount": 172.8
+      },
+      {
+        "line": 10,
+        "barcode": "8053017343549",
+        "description": "שימורי OASY CAPRICE ארנבת 85גר 18מ",
+        "quantity": 72.0,
+        "unit_price": 2.4,
+        "total_amount": 172.8
+      },
+      {
+        "line": 11,
+        "barcode": "8053017343563",
+        "description": "שימורי OASY CAPRICE כבד 85גר 18מ",
+        "quantity": 72.0,
+        "unit_price": 2.4,
+        "total_amount": 172.8
+      },
+      {
+        "line": 12,
+        "barcode": "8053017343587",
+        "description": "שימורי OASY CAPRICE טרוף 85גר 18מ",
+        "quantity": 72.0,
+        "unit_price": 2.4,
+        "total_amount": 172.8
+      },
+      {
+        "line": 13,
+        "barcode": "8054329512036",
+        "description": "שימורי OASY CAPRICE גורס סלמון 85גר 18מ",
+        "quantity": 72.0,
+        "unit_price": 2.4,
+        "total_amount": 172.8
+      }
+    ],
+    "summary": {
+      "total_lines": 13,
+      "subtotal": 2517.6,
+      "discount": 0.2,
+      "vat": 453.2,
+      "total_amount": 2971.0
+    }
+  },
+  "summary": {
+    "processing_time_seconds": 31.28,
+    "processing_time_formatted": "31.3 שניות",
+    "processed_sections": [
+      "INTRO",
+      "MAIN"
+    ],
+    "intro_fields_extracted": 18,
+    "intro_completeness": 51.4,
+    "main_lines_extracted": 13,
+    "main_subtotal": 2517.6,
+    "total_sections_processed": 2,
+    "analysis_timestamp": "2025-08-26 12:45:23"
+  }
+}

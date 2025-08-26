@@ -1,0 +1,139 @@
+{
+  "success": true,
+  "processing_info": {
+    "file_path": "C:/projects/invoice2claude/temp/test_1/test_1.pdf",
+    "process_intro": true,
+    "process_main": true,
+    "use_ocr": true,
+    "start_time": "2025-08-24 21:06:48"
+  },
+  "intro": {
+    "invoice_info": {
+      "number": "15039",
+      "date": "31/7/2025",
+      "type": "חשבונית מס",
+      "due_date": "30/09/2025",
+      "reference": "11074179",
+      "currency": "₪"
+    },
+    "company_info": {
+      "name": "מוצרי איכות לכלבים בע\"מ",
+      "address": "רח' אופיקים 8",
+      "city": "פתח תקווה",
+      "postal_code": "4932224",
+      "phone": "03-9328444",
+      "fax": "03-9330602",
+      "email": "orders@amitay.com",
+      "website": "",
+      "tax_id": "511154841",
+      "business_license": ""
+    },
+    "customer_info": {
+      "name": "פט זון סנטר",
+      "address": "המלאכה 4",
+      "city": "אזור",
+      "postal_code": "",
+      "phone": "0505481118, 036056053",
+      "email": "",
+      "tax_id": "558062881",
+      "contact_person": ""
+    },
+    "payment_terms": {
+      "due_date": "30/09/2025",
+      "payment_method": "",
+      "bank_details": "הבינלאומי 31 סניף 095 חשבון 32499",
+      "credit_terms": "",
+      "notes": ""
+    },
+    "additional_info": {
+      "delivery_address": "",
+      "order_number": "496587",
+      "delivery_date": "",
+      "agent_name": "",
+      "agent_phone": "",
+      "notes": ""
+    },
+    "metadata": {
+      "extracted_fields_count": 22,
+      "completeness_score": 62.9,
+      "analysis_timestamp": "2025-08-24 21:07:18"
+    }
+  },
+  "main": {
+    "main_items": [
+      {
+        "line": 1,
+        "barcode": "6957919910841",
+        "item_code": "25579",
+        "description": "חטיף כלב לייט דג שרימפ נאטורל 80 גר",
+        "quantity": 20,
+        "unit_price": 17.55,
+        "discount_percent": 40,
+        "price_after_discount": null,
+        "total_amount": 210.6
+      },
+      {
+        "line": 2,
+        "barcode": "6957919910828",
+        "item_code": "10828",
+        "description": "חטיף כלב היפואי עצם קטנה דג לייג 80 גר",
+        "quantity": 26,
+        "unit_price": 9.33,
+        "discount_percent": 40,
+        "price_after_discount": null,
+        "total_amount": 145.55
+      },
+      {
+        "line": 3,
+        "barcode": "6957919910811",
+        "item_code": "10811",
+        "description": "חטיף כלב היפואי עצם קטנה בקר לייג 80 גר",
+        "quantity": 26,
+        "unit_price": 9.33,
+        "discount_percent": 40,
+        "price_after_discount": null,
+        "total_amount": 145.55
+      },
+      {
+        "line": 4,
+        "barcode": "6957919910835",
+        "item_code": "10835",
+        "description": "חטיף כלב היפואי עצם קטנה ברוז לייג 80 גר",
+        "quantity": 24,
+        "unit_price": 9.33,
+        "discount_percent": 40,
+        "price_after_discount": null,
+        "total_amount": 134.35
+      },
+      {
+        "line": 5,
+        "barcode": "6957919910859",
+        "item_code": "10859",
+        "description": "חטיף כלב היפואי מקל תפוח בקר 80 גר",
+        "quantity": 20,
+        "unit_price": 9.33,
+        "discount_percent": 40,
+        "price_after_discount": null,
+        "total_amount": 111.96
+      }
+    ],
+    "summary": {
+      "total_lines": 28,
+      "subtotal": 3938.5
+    }
+  },
+  "summary": {
+    "processing_time_seconds": 42.83,
+    "processing_time_formatted": "42.8 שניות",
+    "processed_sections": [
+      "INTRO",
+      "MAIN"
+    ],
+    "intro_fields_extracted": 22,
+    "intro_completeness": 62.9,
+    "main_lines_extracted": 28,
+    "main_subtotal": 3938.5,
+    "total_sections_processed": 2,
+    "analysis_timestamp": "2025-08-24 21:07:31"
+  }
+}

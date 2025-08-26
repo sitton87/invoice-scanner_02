@@ -1,0 +1,74 @@
+{
+  "main_items": [
+    {
+      "line": 1,
+      "barcode": "800947001174",
+      "item_code": "29000126",
+      "description": "מוט אלומ סלמון וופל חום 2 ק\"ג",
+      "quantity": 15.0,
+      "unit_price": 318.0,
+      "discount_percent": 48.0,
+      "price_after_discount": 165.36,
+      "total_amount": 2480.4
+    },
+    {
+      "line": 2,
+      "barcode": "800947001174",
+      "item_code": "29000126",
+      "description": "מוט אלומ סלמון וופל חום 2 ק\"ג",
+      "quantity": 1.0,
+      "unit_price": 318.0,
+      "discount_percent": 99.0,
+      "price_after_discount": 3.18,
+      "total_amount": 3.18
+    },
+    {
+      "line": 3,
+      "barcode": "800947014936",
+      "item_code": "15170004",
+      "description": "מוט אלו רול ואקום וופר 150 ג לבן",
+      "quantity": 24.0,
+      "unit_price": 6.7,
+      "discount_percent": 50.0,
+      "price_after_discount": 3.35,
+      "total_amount": 80.4
+    },
+    {
+      "line": 4,
+      "barcode": "800947014912",
+      "item_code": "15170003",
+      "description": "מוט אלו טרמו/ואקום וופר 150 ג לבן",
+      "quantity": 48.0,
+      "unit_price": 6.7,
+      "discount_percent": 50.0,
+      "price_after_discount": 3.35,
+      "total_amount": 160.8
+    },
+    {
+      "line": 5,
+      "barcode": "800947001570",
+      "item_code": "29000226",
+      "description": "מוט אלומ סלמון וופל 2.5 ק\"ג",
+      "quantity": 4.0,
+      "unit_price": 100.0,
+      "discount_percent": 57.0,
+      "price_after_discount": 43.0,
+      "total_amount": 172.0
+    },
+    {
+      "line": 6,
+      "barcode": "800947001570",
+      "item_code": "29000226",
+      "description": "מוט אלומ סלמון וופל 2.5 ק\"ג",
+      "quantity": 8.0,
+      "unit_price": 100.0,
+      "discount_percent": 57.0,
+      "price_after_discount": 43.0,
+      "total_amount": 344.0
+    }
+  ],
+  "summary": {
+    "total_lines": 6,
+    "subtotal": 3240.78
+  }
+}

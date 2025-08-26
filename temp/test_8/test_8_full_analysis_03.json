@@ -1,0 +1,117 @@
+{
+  "success": true,
+  "processing_info": {
+    "file_path": "C:/projects/invoice2claude/temp/test_8/test_8.jpg",
+    "process_intro": true,
+    "process_main": true,
+    "use_ocr": true,
+    "start_time": "2025-08-26 15:11:21"
+  },
+  "intro": {
+    "invoice_info": {
+      "number": "052.210005193",
+      "date": "18/11/21",
+      "type": "חשבונית",
+      "due_date": "",
+      "reference": "000212",
+      "currency": "ש\"ח"
+    },
+    "company_info": {
+      "name": "י.ח.ד מדיוני בע\"מ",
+      "address": "המלאכה 8",
+      "city": "",
+      "postal_code": "",
+      "phone": "08-9340587",
+      "fax": "",
+      "email": "",
+      "website": "",
+      "tax_id": "513826552",
+      "business_license": ""
+    },
+    "customer_info": {
+      "name": "שחק-זו סנטר",
+      "address": "כנרת 3",
+      "city": "אור יהודה",
+      "postal_code": "",
+      "phone": "03-6056053",
+      "email": "",
+      "tax_id": "558062881",
+      "contact_person": "רותם"
+    },
+    "payment_terms": {
+      "due_date": "",
+      "payment_method": "מזומן",
+      "bank_details": "",
+      "credit_terms": "",
+      "notes": ""
+    },
+    "additional_info": {
+      "delivery_address": "",
+      "order_number": "",
+      "delivery_date": "",
+      "agent_name": "",
+      "agent_phone": "050-5481118",
+      "notes": "לקוחות יקרים, מחודש אוקטובר 2021 משרדנו יהיו סגורים בימי שישי וערבי חג"
+    },
+    "metadata": {
+      "extracted_fields_count": 18,
+      "completeness_score": 51.4,
+      "analysis_timestamp": "2025-08-26 15:11:53"
+    }
+  },
+  "main": {
+    "main_items": [
+      {
+        "line": 1,
+        "barcode": "506",
+        "item_code": "8001-6",
+        "description": "ברונקס OXY ענקית",
+        "quantity": null,
+        "unit_price": null,
+        "discount_percent": null,
+        "price_after_discount": null,
+        "total_amount": null
+      },
+      {
+        "line": 2,
+        "barcode": "2090",
+        "item_code": "8401-67",
+        "description": "ברונקס OXY ענקית",
+        "quantity": null,
+        "unit_price": null,
+        "discount_percent": null,
+        "price_after_discount": null,
+        "total_amount": null
+      },
+      {
+        "line": 3,
+        "barcode": "25220533",
+        "item_code": "8401-680",
+        "description": "ברונקס עצם ענקית",
+        "quantity": null,
+        "unit_price": null,
+        "discount_percent": null,
+        "price_after_discount": null,
+        "total_amount": null
+      }
+    ],
+    "summary": {
+      "total_lines": 3,
+      "subtotal": 196.26
+    }
+  },
+  "summary": {
+    "processing_time_seconds": 43.21,
+    "processing_time_formatted": "43.2 שניות",
+    "processed_sections": [
+      "INTRO",
+      "MAIN"
+    ],
+    "intro_fields_extracted": 18,
+    "intro_completeness": 51.4,
+    "main_lines_extracted": 3,
+    "main_subtotal": 196.26,
+    "total_sections_processed": 2,
+    "analysis_timestamp": "2025-08-26 15:12:04"
+  }
+}

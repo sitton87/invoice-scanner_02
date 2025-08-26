@@ -1,0 +1,67 @@
+{
+  "main_items": [
+    {
+      "line": 1,
+      "barcode": "695791991842",
+      "description": "חטיף לכל חתול/עם בשר כבש לליג 80*24 בשקית",
+      "quantity": 24,
+      "unit_price": 9.33,
+      "price_after_discount": 57.5,
+      "total_amount": 95.2
+    },
+    {
+      "line": 2,
+      "barcode": "695791991828",
+      "description": "חטיף לכל חתול/עם בשר כבש לליג 80*24 בשקית",
+      "quantity": 24,
+      "unit_price": 9.33,
+      "price_after_discount": 57.5,
+      "total_amount": 95.2
+    },
+    {
+      "line": 3,
+      "barcode": "695791991811",
+      "description": "חטיף לכל חתול/עם בשר כבש לליג 80*24 בשקית",
+      "quantity": 24,
+      "unit_price": 9.33,
+      "price_after_discount": 57.5,
+      "total_amount": 95.2
+    },
+    {
+      "line": 4,
+      "barcode": "695791991835",
+      "description": "חטיף לכל חתול/עם בשר כבש לליג 80*24 בשקית",
+      "quantity": 20,
+      "unit_price": 9.33,
+      "price_after_discount": 57.5,
+      "total_amount": 79.33
+    },
+    {
+      "line": 5,
+      "barcode": "695791991859",
+      "description": "חטיף לכל חתול/עם בשר כבש לליג 80*24 בשקית",
+      "quantity": 25,
+      "unit_price": 9.33,
+      "price_after_discount": 57.5,
+      "total_amount": 99.16
+    },
+    {
+      "line": 6,
+      "barcode": "695791991873",
+      "description": "חטיף לכל חתול/עם בשר כבש לליג 80*25 בשקית",
+      "quantity": 25,
+      "unit_price": 9.33,
+      "price_after_discount": 57.5,
+      "total_amount": 99.16
+    }
+  ],
+  "summary": {
+    "total_lines": 27,
+    "subtotal": 2938.5,
+    "discount_percent": 0.01,
+    "discount_amount": 0.36,
+    "subtotal_before_vat": 2938.14,
+    "vat_amount": 528.86,
+    "total_amount": 3467.0
+  }
+}

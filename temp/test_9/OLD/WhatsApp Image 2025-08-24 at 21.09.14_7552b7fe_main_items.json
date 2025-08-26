@@ -1,0 +1,91 @@
+{
+  "main_items": [
+    {
+      "line": 1,
+      "item_code": "ASPR550044",
+      "description": "פרופיל ספייסר סיפון זכוכית מדרכה סילון 110 א (x50)",
+      "quantity": 1,
+      "unit_price": 45.0,
+      "discount_percent": 0,
+      "price_after_discount": 0.0,
+      "total_amount": 0.0
+    },
+    {
+      "line": 8,
+      "item_code": "ASPR550044",
+      "description": "פרופיל ספייסר סיפון זכוכית מדרכה סילון 110 א (x50)",
+      "quantity": 4,
+      "unit_price": 105.0,
+      "discount_percent": 50.0,
+      "price_after_discount": 8.0,
+      "total_amount": 420.0
+    },
+    {
+      "line": 2,
+      "item_code": "ASPR560044",
+      "description": "פרופיל ספייסר סיפון זכוכית ווילר פרופיל 110 א (x50)",
+      "quantity": 1,
+      "unit_price": 45.0,
+      "discount_percent": 0,
+      "price_after_discount": 0.0,
+      "total_amount": 0.0
+    },
+    {
+      "line": 6,
+      "item_code": "ASPR560044",
+      "description": "פרופיל ספייסר סיפון זכוכית ווילר פרופיל 110 א (x50)",
+      "quantity": 4,
+      "unit_price": 105.0,
+      "discount_percent": 50.0,
+      "price_after_discount": 8.0,
+      "total_amount": 420.0
+    },
+    {
+      "line": 3,
+      "item_code": "ASPR570044",
+      "description": "פרופיל ספייסר סיפון זכוכית ניקולה 110 א (x50)",
+      "quantity": 1,
+      "unit_price": 45.0,
+      "discount_percent": 0,
+      "price_after_discount": 0.0,
+      "total_amount": 0.0
+    },
+    {
+      "line": 4,
+      "item_code": "ASPR570044",
+      "description": "פרופיל ספייסר סיפון זכוכית ניקולה 110 א (x50)",
+      "quantity": 4,
+      "unit_price": 105.0,
+      "discount_percent": 50.0,
+      "price_after_discount": 8.0,
+      "total_amount": 420.0
+    },
+    {
+      "line": 5,
+      "item_code": "ASPR580044",
+      "description": "פרופיל ספייסר סיפון זכוכית מיסטריאן פרופיל 110 א (x50)",
+      "quantity": 1,
+      "unit_price": 45.0,
+      "discount_percent": 0,
+      "price_after_discount": 0.0,
+      "total_amount": 0.0
+    },
+    {
+      "line": 7,
+      "item_code": "ASPR580044",
+      "description": "פרופיל ספייסר סיפון זכוכית מיסטריאן פרופיל 110 א (x50)",
+      "quantity": 4,
+      "unit_price": 105.0,
+      "discount_percent": 50.0,
+      "price_after_discount": 8.0,
+      "total_amount": 420.0
+    }
+  ],
+  "summary": {
+    "total_lines": 8,
+    "subtotal": 1680.0,
+    "general_discount": 0.34,
+    "vat": 302.34,
+    "total_amount": 1982.0
+  }
+}
