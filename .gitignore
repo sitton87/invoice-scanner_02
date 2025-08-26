@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.env
+uploads/
+venv/
+.vscode/
+config.py
+invoice_env/
+output/
+temp/

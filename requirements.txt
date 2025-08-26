@@ -1,0 +1,19 @@
+# Main libraries
+anthropic>=0.25.0
+Pillow>=10.0.0
+PyMuPDF>=1.23.0
+
+# OCR libraries
+easyocr>=1.7.0
+pytesseract>=0.3.10
+
+# Image processing libraries
+opencv-python>=4.8.0
+numpy>=1.24.0
+imutils>=0.5.4
+
+# PDF processing libraries - NEW!
+pdfplumber>=0.9.0
+
+# Additional libraries
+pydantic>=2.7.0
