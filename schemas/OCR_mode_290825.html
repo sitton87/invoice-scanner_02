@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>תרשים זרימה - OCR Mode</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        margin: 0;
+        padding: 20px;
+        direction: rtl;
+      }
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        padding: 30px;
+      }
+      h1 {
+        text-align: center;
+        color: #4a148c;
+        margin-bottom: 30px;
+        font-size: 2.2em;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .flowchart {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        padding: 20px;
+      }
+      .box {
+        background: #673ab7;
+        color: white;
+        padding: 15px 25px;
+        border-radius: 12px;
+        text-align: center;
+        font-weight: bold;
+        box-shadow: 0 4px 15px rgba(103, 58, 183, 0.3);
+        min-width: 200px;
+        transition: transform 0.3s ease;
+      }
+      .box:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(103, 58, 183, 0.4);
+      }
+      .diamond {
+        background: #ff5722;
+        color: white;
+        padding: 20px;
+        clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+        width: 180px;
+        height: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-weight: bold;
+        box-shadow: 0 4px 15px rgba(255, 87, 34, 0.3);
+      }
+      .ocr-box {
+        background: #00bcd4;
+        box-shadow: 0 4px 15px rgba(0, 188, 212, 0.3);
+        border: 2px solid #006064;
+      }
+      .intro-box {
+        background: #9c27b0;
+        box-shadow: 0 4px 15px rgba(156, 39, 176, 0.3);
+      }
+      .main-box {
+        background: #4caf50;
+        box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+      }
+      .api-box {
+        background: #f44336;
+        color: white;
+        border: 3px solid #d32f2f;
+        animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+      .text-flow-box {
+        background: #ffc107;
+        color: #000;
+        border: 3px solid #ff8f00;
+        font-weight: bold;
+      }
+      .arrow {
+        font-size: 2em;
+        color: #4a148c;
+        margin: 5px 0;
+      }
+      .branch {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        max-width: 1200px;
+        margin: 20px 0;
+      }
+      .branch-left,
+      .branch-right {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex: 1;
+        margin: 0 20px;
+      }
+      .branch-title {
+        background: #4a148c;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 25px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+      .merge-arrow {
+        position: relative;
+        width: 100%;
+        height: 40px;
+        margin: 20px 0;
+      }
+      .merge-arrow::before {
+        content: "";
+        position: absolute;
+        left: 20%;
+        top: 50%;
+        width: 60%;
+        height: 2px;
+        background: #4a148c;
+      }
+      .merge-arrow::after {
+        content: "▼";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 1.5em;
+        color: #4a148c;
+        background: white;
+        padding: 0 10px;
+      }
+      .summary {
+        background: #f3e5f5;
+        border: 2px solid #9c27b0;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 30px;
+        direction: rtl;
+      }
+      .summary h3 {
+        color: #4a148c;
+        margin-bottom: 15px;
+        border-bottom: 2px solid #9c27b0;
+        padding-bottom: 5px;
+      }
+      .file-box {
+        background: #ff9800;
+        box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+      }
+      .description {
+        font-size: 0.9em;
+        color: rgba(255, 255, 255, 0.9);
+        margin-top: 5px;
+        font-weight: normal;
+      }
+      .highlight-ocr {
+        background: linear-gradient(45deg, #00bcd4, #0097a7);
+        box-shadow: 0 0 20px rgba(0, 188, 212, 0.5);
+      }
+      .tesseract-box {
+        background: #795548;
+        box-shadow: 0 4px 15px rgba(121, 85, 72, 0.3);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🔍 תרשים זרימה - OCR Mode</h1>
+
+      <div class="flowchart">
+        <!-- התחלה -->
+        <div class="box">
+          <div>OCR Mode התחלה</div>
+        </div>
+
+        <div class="arrow">↓</div>
+
+        <div class="box">
+          <div>ui.py: process_in_background()</div>
+          <div class="description">קביעה: use_ocr = True</div>
+        </div>
+
+        <div class="arrow">↓</div>
+
+        <div class="box">
+          <div>full_processor.py</div>
+          <div>process_full_invoice()</div>
+          <div class="description">יצירת result structure</div>
+        </div>
+
+        <div class="arrow">↓</div>
+
+        <!-- שלב OCR הראשון -->
+        <div class="box highlight-ocr">
+          <div>🔍 שלב 1: OCR Processing</div>
+          <div>ocr_processor.process_invoice_with_ocr()</div>
+          <div class="description">חילוץ טקסט מהתמונה/PDF</div>
+        </div>
+
+        <div class="arrow">↓</div>
+
+        <div class="diamond">
+          <div>סוג הקובץ?<br />PDF או תמונה</div>
+        </div>
+
+        <div class="arrow">↓</div>
+
+        <div class="box file-box">
+          <div>אם PDF: _process_pdf_for_ocr()</div>
+          <div>אם תמונה: _preprocess_image()</div>
+          <div class="description">עיבוד מקדים + שיפור איכות</div>
+        </div>
+
+        <div class="arrow">↓</div>
+
+        <div class="box highlight-ocr">
+          <div>🔄 _auto_rotate_image()</div>
+          <div class="description">זיהוי וחיקון סיבוב אוטומטי</div>
+        </div>
+
+        <div class="arrow">↓</div>
+
+        <div class="box tesseract-box">
+          <div>🔤 _extract_text_tesseract()</div>
+          <div class="description">
+            Tesseract OCR: עברית + אנגלית, PSM מרובים
+          </div>
+        </div>
+
+        <div class="arrow">↓</div>
+
+        <div class="box api-box">
+          <div>Claude API Call #1 (OCR Analysis)</div>
+          <div class="description">
+            _analyze_text_with_claude() - ניתוח טקסט OCR
+          </div>
+        </div>
+
+        <div class="arrow">↓</div>
+
+        <div class="box text-flow-box">
+          <div>📝 extracted_text מוכן</div>
+          <div class="description">טקסט נקי זורם לשני הענפים</div>
+        </div>
+
+        <div class="arrow">↓</div>
+
+        <div class="diamond">
+          <div>איזה חלקים לעבד?<br />INTRO + MAIN</div>
+        </div>
+
+        <!-- הסתעפות -->
+        <div class="branch">
+          <!-- INTRO Branch -->
+          <div class="branch-left">
+            <div class="branch-title">INTRO Branch</div>
+
+            <div class="box intro-box">
+              <div>intro_analyzer.py</div>
+              <div>analyze_intro()</div>
+              <div class="description">קבלת extracted_text</div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="box intro-box">
+              <div>_create_intro_prompt()</div>
+              <div class="description">יצירת פרומפט מפורט</div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="box intro-box">
+              <div>_analyze_intro_from_text()</div>
+              <div class="description">עיבוד טקסט OCR (לא תמונה)</div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="box api-box">
+              <div>Claude API Call #2</div>
+              <div class="description">טקסט + פרומפט INTRO</div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="box intro-box">
+              <div>_extract_json_from_response()</div>
+              <div class="description">חילוץ JSON מתשובה</div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="box intro-box">
+              <div>_clean_and_validate_intro()</div>
+              <div class="description">ניקוי + metadata</div>
+            </div>
+          </div>
+
+          <!-- MAIN Branch -->
+          <div class="branch-right">
+            <div class="branch-title">MAIN Branch</div>
+
+            <div class="box main-box">
+              <div>full_processor.py</div>
+              <div>_process_main_from_text()</div>
+              <div class="description">עיבוד MAIN מטקסט OCR</div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="box main-box">
+              <div>יצירת פרומפט MAIN</div>
+              <div class="description">פרומפט לחילוץ רשימת פריטים</div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="box api-box">
+              <div>Claude API Call #3</div>
+              <div class="description">טקסט + פרומפט רשימת פריטים</div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="box main-box">
+              <div>חילוץ JSON</div>
+              <div class="description">רשימת פריטים מתשובת קלוד</div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="box main-box">
+              <div>json.loads()</div>
+              <div class="description">המרה ל-Python dict</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- איחוד -->
+        <div class="merge-arrow"></div>
+
+        <div class="box">
+          <div>full_processor.py: _create_summary()</div>
+          <div class="description">חישוב סטטיסטיקות</div>
+        </div>
+
+        <div class="arrow">↓</div>
+
+        <div class="box">
+          <div>_save_full_result()</div>
+          <div class="description">שמירה עם timestamp</div>
+        </div>
+
+        <div class="arrow">↓</div>
+
+        <div class="box">
+          <div>ui.py: show_results()</div>
+          <div class="description">הצגת תוצאות + טקסט OCR למשתמש</div>
+        </div>
+      </div>
+
+      <!-- סיכום -->
+      <div class="summary">
+        <h3>🔍 סיכום תהליך OCR Mode</h3>
+
+        <h4>שלב OCR ראשון:</h4>
+        <ul>
+          <li><strong>ocr_processor.py</strong> - מבצע OCR מלא על הקובץ</li>
+          <li>
+            <strong>זיהוי וחיקון סיבוב אוטומטי</strong> - _auto_rotate_image()
+          </li>
+          <li><strong>Tesseract OCR</strong> - חילוץ טקסט בעברית ואנגלית</li>
+          <li><strong>Claude API #1</strong> - ניתוח ועיבוד הטקסט המחולץ</li>
+        </ul>
+
+        <h4>קריאות API לקלוד (סה"כ 3):</h4>
+        <ul>
+          <li>
+            <strong>API #1 (OCR Analysis):</strong> טקסט OCR → JSON מעובד של
+            רשימת פריטים
+          </li>
+          <li>
+            <strong>API #2 (INTRO):</strong> טקסט OCR + פרומפט INTRO → פרטי
+            חשבונית
+          </li>
+          <li>
+            <strong>API #3 (MAIN):</strong> טקסט OCR + פרומפט MAIN → רשימת
+            פריטים (נוסף)
+          </li>
+        </ul>
+
+        <h4>הבדלים מ-Image Mode:</h4>
+        <ul>
+          <li><strong>שלב OCR ראשון</strong> - חילוץ טקסט לפני עיבוד קלוד</li>
+          <li><strong>INTRO מקבל טקסט</strong> במקום תמונה</li>
+          <li>
+            <strong>MAIN מעובד בפונקציה פנימית</strong> במקום processor.py
+          </li>
+          <li><strong>3 קריאות API</strong> במקום 2</li>
+          <li><strong>הצגת טקסט OCR</strong> בתוצאות הסופיות</li>
+        </ul>
+
+        <h4>סקריפטים מעורבים:</h4>
+        <ul>
+          <li><strong>ui.py</strong> - ממשק משתמש ותיאום</li>
+          <li>
+            <strong>full_processor.py</strong> - מנהל מרכזי
+            ו-_process_main_from_text()
+          </li>
+          <li><strong>ocr_processor.py</strong> - OCR מתקדם עם תיקון סיבוב</li>
+          <li><strong>intro_analyzer.py</strong> - עיבוד פרטי חשבונית מטקסט</li>
+        </ul>
+
+        <h4>טכנולוגיות OCR:</h4>
+        <ul>
+          <li><strong>Tesseract</strong> - חילוץ טקסט עם PSM מרובים</li>
+          <li><strong>OpenCV</strong> - עיבוד תמונה ותיקון סיבוב</li>
+          <li><strong>PyMuPDF</strong> - עיבוד PDF ברזולוציה גבוהה</li>
+          <li><strong>PIL/Pillow</strong> - עיבוד תמונה בסיסי</li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>

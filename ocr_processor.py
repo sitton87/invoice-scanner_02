@@ -1,4 +1,3 @@
-    
 """
 ocr_processor.py - מעבד OCR עם תיקון סיבוב אוטומטי לחשבוניות
 """
@@ -15,7 +14,8 @@ import fitz  # PyMuPDF
 import io
 import re
 import imutils
-from config import ANTHROPIC_API_KEY, CLAUDE_MODEL, validate_api_key
+import datetime
+from config import ANTHROPIC_API_KEY, CLAUDE_MODEL, validate_api_key, get_custom_output_filename
 
 class OCRProcessor:
     """מעבד OCR עם תיקון סיבוב אוטומטי"""
@@ -62,10 +62,24 @@ class OCRProcessor:
             # ניתוח הטקסט עם Claude
             result_json = self._analyze_text_with_claude(extracted_text)
             
+            # שלב שמירה
+            if progress_callback:
+                progress_callback("שומר תוצאות...")
+            
+            result_data = {
+                "json_data": result_json,
+                "extracted_text": extracted_text,
+                "method_used": "advanced_ocr_with_rotation_fix",
+                "processing_timestamp": datetime.datetime.now().isoformat()
+            }
+            
+            output_path = self._save_result(image_path, result_data)
+            
             return {
                 "success": True,
                 "json_data": result_json,
                 "extracted_text": extracted_text,
+                "output_file": str(output_path),
                 "message": "עיבוד הושלם בהצלחה עם תיקון סיבוב!"
             }
             
@@ -441,6 +455,19 @@ class OCRProcessor:
             
         except json.JSONDecodeError as e:
             raise ValueError(f"שגיאה בפרסור JSON: {str(e)}")
+    
+    def _save_result(self, original_file_path, result_data):
+        """שמירת תוצאת OCR לקובץ"""
+        try:
+            output_path = get_custom_output_filename(original_file_path, "OCR", "MAIN")
+            
+            with open(output_path, 'w', encoding='utf-8') as f:
+                json.dump(result_data, f, ensure_ascii=False, indent=2)
+            
+            return output_path
+            
+        except Exception as e:
+            raise ValueError(f"שגיאה בשמירת קובץ: {str(e)}")
 
 
 def process_invoice_with_ocr(image_path, progress_callback=None):

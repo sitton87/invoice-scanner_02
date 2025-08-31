@@ -13,7 +13,8 @@ import anthropic
 import json
 import io
 import imutils
-from config import ANTHROPIC_API_KEY, CLAUDE_MODEL
+import datetime
+from config import ANTHROPIC_API_KEY, CLAUDE_MODEL, get_custom_output_filename
 
 class HybridInvoiceProcessor:
     """מעבד היברידי לחשבוניות - OCR + Text Extraction"""
@@ -44,11 +45,26 @@ class HybridInvoiceProcessor:
             
             structured_data = self._process_with_claude(text_content)
             
+            # שלב 3: שמירה
+            if progress_callback:
+                progress_callback("שומר תוצאות...")
+            
+            # שמירת התוצאה
+            result_data = {
+                "json_data": structured_data,
+                "extracted_text": text_content,
+                "method_used": self.last_method_used,
+                "processing_timestamp": datetime.datetime.now().isoformat()
+            }
+            
+            output_path = self._save_result(file_path, result_data)
+            
             return {
                 "success": True,
                 "json_data": structured_data,
                 "extracted_text": text_content,
                 "method_used": self.last_method_used,
+                "output_file": str(output_path),
                 "message": "עיבוד הושלם בהצלחה!"
             }
             
@@ -360,6 +376,20 @@ class HybridInvoiceProcessor:
         
         json_text = response_text[start_pos:end_pos]
         return json.loads(json_text)
+    
+    def _save_result(self, original_file_path, result_data):
+        """שמירת התוצאה לקובץ"""
+        try:
+            # Hybrid תמיד עושה MAIN בלבד (כרגע)
+            output_path = get_custom_output_filename(original_file_path, "HYBRID", "MAIN")
+            
+            with open(output_path, 'w', encoding='utf-8') as f:
+                json.dump(result_data, f, ensure_ascii=False, indent=2)
+            
+            return output_path
+            
+        except Exception as e:
+            raise ValueError(f"שגיאה בשמירת קובץ: {str(e)}")
 
 
 # פונקציה נוחה

@@ -1,0 +1,118 @@
+graph TD
+    A[🚀 הפעלת main.py] --> B[📋 טעינת GUI - ui.py]
+    
+    B --> C{🔧 בדיקת API Key<br/>config.validate_api_key}
+    C -->|❌ אין מפתח| D[⚠️ הזהרה בלוג]
+    C -->|✅ מפתח תקין| E[✅ מציג הודעה בלוג]
+    
+    D --> F[🎯 ממשק מוכן לשימוש]
+    E --> F
+    
+    F --> G[📁 לחיצה על 'Select Invoice File']
+    G --> H[📂 filedialog.askopenfilename<br/>בחירת קובץ]
+    H --> I[📄 הצגת שם קובץ + הפעלת כפתור Process]
+    
+    I --> J[⚙️ בחירת הגדרות]
+    J --> K[📊 Processing Mode:<br/>• OCR Mode ✅<br/>• Image Mode]
+    J --> L[📋 Sections:<br/>• INTRO ✅<br/>• MAIN ✅]
+    
+    K --> M[🚀 לחיצה על 'Process Invoice']
+    L --> M
+    
+    M --> N[🔄 start_processing<br/>• השבתת כפתורים<br/>• הפעלת progress bar]
+    
+    N --> O[🧵 threading.Thread<br/>process_in_background]
+    
+    O --> P{🔀 בחירת מצב עיבוד}
+    
+    P -->|🔍 OCR + INTRO + MAIN| Q1[📜 full_processor.py<br/>FullInvoiceProcessor]
+    P -->|🖼️ Image + INTRO + MAIN| Q1
+    P -->|🔍 OCR + MAIN בלבד| Q2[🔍 ocr_processor.py<br/>OCRProcessor]
+    P -->|🖼️ Image + MAIN בלבד| Q3[📷 processor.py<br/>InvoiceProcessor]
+    
+    Q1 --> R1[📋 intro_analyzer.py<br/>IntroAnalyzer]
+    Q1 --> R2[🛒 עיבוד MAIN Items]
+    
+    Q2 --> S1[🔍 OCR: Tesseract]
+    Q2 --> S2[🤖 Claude API - MAIN]
+    
+    Q3 --> T1[📷 PIL + OpenCV]
+    Q3 --> T2[🤖 Claude Vision API - MAIN]
+    
+    R1 --> U[📤 תשובה ל-GUI]
+    R2 --> U
+    S2 --> U
+    T2 --> U
+    
+    U --> V[📊 show_results]
+    V --> W[📄 הצגת JSON בלוג]
+    V --> X[💾 שמירת קובץ JSON]
+    V --> Y[🔘 הפעלת 'Open Output Folder']
+    
+    Y --> Z[📂 פתיחת תיקיית פלט]
+    W --> AA[📋 Copy Log / 🗑️ Clear Results]
+
+    style A fill:#e1f5fe
+    style Q1 fill:#c8e6c9
+    style Q2 fill:#fff3e0
+    style Q3 fill:#fce4ec
+    style U fill:#f3e5f5
+
+
+
+
+
+
+    [User clicks "Process" in UI]
+          │
+          ▼
+      ui.py (GUI)
+  ───────────────────────
+  קורא: process_full_invoice(
+        file_path, 
+        process_intro=✓/✗, 
+        process_main=✓/✗, 
+        use_ocr=False)
+          │
+          ▼
+ full_processor.process_full_invoice
+  ─────────────────────────────────
+  1) _prepare_image_for_analysis(file)  ← use_ocr=False
+     (בשלב זה רק מעביר נתיב; עיבוד תמונה כבד נעשה ב-processor.py)
+          │
+          ├─────────────┐
+          │             │
+          ▼             ▼
+ (אם INTRO=✓)       (אם MAIN=✓)
+ IntroAnalyzer       InvoiceProcessor
+ .analyze_intro(     .process_invoice(
+   image_path=...)     file_path,...)
+   │                    │
+   │                    ├─ אם PDF → _pdf_to_image()
+   │                    │     • רינדור כל עמוד עם PyMuPDF
+   │                    │     • איחוד אנכי לתמונה אחת
+   │                    │     • אופטימיזציה (גודל/איכות)
+   │                    └─ אם תמונה → _optimize_image()
+   │
+   ▼                    ▼
+ שליחה ל-CLAUDE       שליחה ל-CLAUDE
+ (image + prompt)     (image + SYSTEM_PROMPT + USER_PROMPT)
+   │                    │
+   ▼                    ▼
+ חילוץ JSON           חילוץ JSON
+ + ניקוי/ולידציה      (_extract_json_from_response)
+ (metadata:            │
+  extracted_fields,     ▼
+  completeness, ...)   result_json
+          └──────┬──────┘
+                 ▼
+        מיזוג תוצאות + Summary
+        (processing_time, sections,
+         main.total_lines וכו')
+                 │
+                 ▼
+      _save_full_result(...)  →  כתיבת JSON
+      (get_custom_output_filename)
+                 │
+                 ▼
+       החזרה ל־UI + הודעת הצלחה

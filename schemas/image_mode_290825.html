@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>תרשים זרימה - Image Mode</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        margin: 0;
+        padding: 20px;
+        direction: rtl;
+      }
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+      }
+      h1 {
+        text-align: center;
+        color: #2c3e50;
+        margin-bottom: 30px;
+        font-size: 2.2em;
+      }
+      .flowchart {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        padding: 20px;
+      }
+      .box {
+        background: #3498db;
+        color: white;
+        padding: 15px 25px;
+        border-radius: 12px;
+        text-align: center;
+        font-weight: bold;
+        box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        min-width: 200px;
+        transition: transform 0.3s ease;
+      }
+      .box:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+      }
+      .diamond {
+        background: #e67e22;
+        color: white;
+        padding: 20px;
+        clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+        width: 180px;
+        height: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-weight: bold;
+        box-shadow: 0 4px 15px rgba(230, 126, 34, 0.3);
+      }
+      .intro-box {
+        background: #9b59b6;
+        box-shadow: 0 4px 15px rgba(155, 89, 182, 0.3);
+      }
+      .main-box {
+        background: #27ae60;
+        box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+      }
+      .api-box {
+        background: #e74c3c;
+        color: white;
+        border: 3px solid #c0392b;
+        animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+      .arrow {
+        font-size: 2em;
+        color: #34495e;
+        margin: 5px 0;
+      }
+      .branch {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        max-width: 1200px;
+        margin: 20px 0;
+      }
+      .branch-left,
+      .branch-right {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex: 1;
+        margin: 0 20px;
+      }
+      .branch-title {
+        background: #34495e;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 25px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+      .merge-arrow {
+        position: relative;
+        width: 100%;
+        height: 40px;
+        margin: 20px 0;
+      }
+      .merge-arrow::before {
+        content: "";
+        position: absolute;
+        left: 20%;
+        top: 50%;
+        width: 60%;
+        height: 2px;
+        background: #34495e;
+      }
+      .merge-arrow::after {
+        content: "▼";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 1.5em;
+        color: #34495e;
+        background: white;
+        padding: 0 10px;
+      }
+      .summary {
+        background: #f8f9fa;
+        border: 2px solid #dee2e6;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 30px;
+        direction: rtl;
+      }
+      .summary h3 {
+        color: #2c3e50;
+        margin-bottom: 15px;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 5px;
+      }
+      .file-box {
+        background: #f39c12;
+        box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
+      }
+      .description {
+        font-size: 0.9em;
+        color: #666;
+        margin-top: 5px;
+        font-weight: normal;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>תרשים זרימה - Image Mode</h1>
+
+      <div class="flowchart">
+        <!-- התחלה -->
+        <div class="box">
+          <div>Image Mode התחלה</div>
+        </div>
+
+        <div class="arrow">↓</div>
+
+        <div class="box">
+          <div>ui.py: process_in_background()</div>
+          <div class="description">קביעה: use_ocr = False</div>
+        </div>
+
+        <div class="arrow">↓</div>
+
+        <div class="box">
+          <div>full_processor.py</div>
+          <div>process_full_invoice()</div>
+          <div class="description">יצירת result structure</div>
+        </div>
+
+        <div class="arrow">↓</div>
+
+        <div class="box file-box">
+          <div>_prepare_image_for_analysis()</div>
+          <div class="description">החזרת file_path ללא שינוי</div>
+        </div>
+
+        <div class="arrow">↓</div>
+
+        <div class="diamond">
+          <div>איזה חלקים לעבד?<br />INTRO + MAIN</div>
+        </div>
+
+        <!-- הסתעפות -->
+        <div class="branch">
+          <!-- INTRO Branch -->
+          <div class="branch-left">
+            <div class="branch-title">INTRO Branch</div>
+
+            <div class="box intro-box">
+              <div>intro_analyzer.py</div>
+              <div>analyze_intro()</div>
+              <div class="description">קבלת image_path</div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="box intro-box">
+              <div>_create_intro_prompt()</div>
+              <div class="description">יצירת פרומפט מפורט</div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="box intro-box">
+              <div>_analyze_intro_from_image()</div>
+              <div class="description">קריאה + base64 encode</div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="box api-box">
+              <div>Claude API Call #1</div>
+              <div class="description">תמונה + פרומפט INTRO</div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="box intro-box">
+              <div>_extract_json_from_response()</div>
+              <div class="description">חילוץ JSON מתשובה</div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="box intro-box">
+              <div>_clean_and_validate_intro()</div>
+              <div class="description">ניקוי + metadata</div>
+            </div>
+          </div>
+
+          <!-- MAIN Branch -->
+          <div class="branch-right">
+            <div class="branch-title">MAIN Branch</div>
+
+            <div class="box main-box">
+              <div>processor.py</div>
+              <div>process_invoice()</div>
+              <div class="description">קבלת file_path</div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="box main-box">
+              <div>_prepare_image()</div>
+              <div class="description">בדיקת סוג קובץ</div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="diamond">
+              <div>PDF או תמונה?</div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="box file-box">
+              <div>אם PDF: _pdf_to_image()</div>
+              <div>אם תמונה: ישירות</div>
+              <div class="description">המרה + איחוד עמודים</div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="box main-box">
+              <div>_optimize_image()</div>
+              <div class="description">שינוי גודל + דחיסה</div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="box main-box">
+              <div>_process_with_claude()</div>
+              <div class="description">תמונה + base64 encode</div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="box api-box">
+              <div>Claude API Call #2</div>
+              <div class="description">תמונה + SYSTEM + USER prompt</div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="box main-box">
+              <div>_extract_json_from_response()</div>
+              <div class="description">חילוץ רשימת פריטים</div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="box main-box">
+              <div>_cleanup_temp_files()</div>
+              <div class="description">מחיקת קבצים זמניים</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- איחוד -->
+        <div class="merge-arrow"></div>
+
+        <div class="box">
+          <div>full_processor.py: _create_summary()</div>
+          <div class="description">חישוב סטטיסטיקות</div>
+        </div>
+
+        <div class="arrow">↓</div>
+
+        <div class="box">
+          <div>_save_full_result()</div>
+          <div class="description">שמירה עם timestamp</div>
+        </div>
+
+        <div class="arrow">↓</div>
+
+        <div class="box">
+          <div>ui.py: show_results()</div>
+          <div class="description">הצגת תוצאות למשתמש</div>
+        </div>
+      </div>
+
+      <!-- סיכום -->
+      <div class="summary">
+        <h3>סיכום תהליך Image Mode</h3>
+
+        <h4>קריאות API לקלוד:</h4>
+        <ul>
+          <li>
+            <strong>API #1 (INTRO):</strong> תמונה + פרומפט פרטי חשבונית → JSON
+            עם פרטים כלליים
+          </li>
+          <li>
+            <strong>API #2 (MAIN):</strong> תמונה + פרומפט רשימת פריטים → JSON
+            עם שורות פריטים
+          </li>
+        </ul>
+
+        <h4>סקריפטים מעורבים:</h4>
+        <ul>
+          <li><strong>ui.py</strong> - ממשק משתמש ותיאום</li>
+          <li><strong>full_processor.py</strong> - מנהל מרכזי ואיחוד תוצאות</li>
+          <li>
+            <strong>intro_analyzer.py</strong> - עיבוד פרטי חשבונית (INTRO בלבד)
+          </li>
+          <li>
+            <strong>processor.py</strong> - עיבוד רשימת פריטים (MAIN בלבד)
+          </li>
+        </ul>
+
+        <h4>עיבוד קבצים מיוחד:</h4>
+        <ul>
+          <li>
+            <strong>PDF:</strong> פתיחה עם PyMuPDF → המרת עמודים → איחוד אנכי →
+            אופטימיזציה
+          </li>
+          <li>
+            <strong>תמונות:</strong> בדיקת גודל → המרה ל-RGB → שינוי גודל →
+            דחיסה
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>

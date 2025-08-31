@@ -15,7 +15,8 @@ import io
 from config import (
     ANTHROPIC_API_KEY, CLAUDE_MODEL, SYSTEM_PROMPT, USER_PROMPT,
     TEMP_DIR, MAX_IMAGE_SIZE, IMAGE_QUALITY, SUPPORTED_IMAGE_FORMATS,
-    validate_api_key, get_output_filename, is_supported_format
+    validate_api_key, get_output_filename, is_supported_format,
+    get_custom_output_filename  # הוסף את השורה הזאת
 )
 
 
@@ -275,9 +276,10 @@ class InvoiceProcessor:
             raise ValueError(f"שגיאה בחילוץ JSON: {str(e)}")
     
     def _save_result(self, original_file_path, json_data):
-        """שמירת התוצאה לקובץ"""
+        """שמירת התוצאה לקובץ עם timestamp"""
         try:
-            output_path = get_output_filename(original_file_path)
+            # קביעת שיטה - Image Mode
+            output_path = get_custom_output_filename(original_file_path, "IMAGE", "MAIN")
             
             with open(output_path, 'w', encoding='utf-8') as f:
                 json.dump(json_data, f, ensure_ascii=False, indent=2)

@@ -1,5 +1,5 @@
 """
-ui.py - Graphical User Interface with OCR Support
+ui.py - Graphical User Interface with OCR and Hybrid Support
 """
 
 import tkinter as tk
@@ -14,18 +14,19 @@ from config import (
     validate_api_key
 )
 from processor import process_single_invoice
-from ocr_processor_01 import process_invoice_with_ocr
+from ocr_processor import process_invoice_with_ocr
 from full_processor import process_full_invoice
+from hybrid_processor_01 import process_invoice_simple_claude
 
 
 class InvoiceProcessorGUI:
-    """Graphical interface for invoice processor with OCR"""
+    """Graphical interface for invoice processor with OCR and Hybrid support"""
     
     def __init__(self):
         """Initialize the interface"""
         self.root = tk.Tk()
         self.processing = False
-        self.use_ocr = tk.BooleanVar(value=True)  # Default OCR
+        self.processing_mode = tk.StringVar(value="ocr")  # Default OCR
         self.process_intro = tk.BooleanVar(value=True)  # Default INTRO
         self.process_main = tk.BooleanVar(value=True)   # Default MAIN
         self.setup_window()
@@ -33,7 +34,7 @@ class InvoiceProcessorGUI:
         
     def setup_window(self):
         """Setup main window"""
-        self.root.title(WINDOW_TITLE + " + OCR")
+        self.root.title(WINDOW_TITLE + " + OCR + Hybrid")
         self.root.geometry("700x800")
         self.root.resizable(True, True)
         
@@ -67,7 +68,7 @@ class InvoiceProcessorGUI:
         # Title
         title_label = ttk.Label(
             main_frame, 
-            text="Invoice Processor for Claude + OCR", 
+            text="Invoice Processor for Claude + OCR + Hybrid", 
             font=('Arial', 16, 'bold')
         )
         title_label.grid(row=0, column=0, columnspan=3, pady=(0, 20))
@@ -75,7 +76,7 @@ class InvoiceProcessorGUI:
         # Instructions
         instructions = """Select an invoice file (image or PDF) for processing.
 The system will extract invoice details and item lines and save them as a unified JSON file.
-💡 OCR mode is recommended for invoices with many lines!"""
+🎯 Hybrid mode automatically chooses the best method per file type!"""
         
         instructions_label = ttk.Label(
             main_frame, 
@@ -98,19 +99,30 @@ The system will extract invoice details and item lines and save them as a unifie
         mode_label = ttk.Label(mode_column, text="Processing Mode:", font=('Arial', 10, 'bold'))
         mode_label.pack(anchor=tk.W, pady=(0, 8))
         
+        # Hybrid mode as first radio button
+        hybrid_radio = ttk.Radiobutton(
+            mode_column, 
+            text="🎯 Hybrid Mode (Smart Auto)", 
+            variable=self.processing_mode,
+            value="hybrid"
+        )
+        hybrid_radio.pack(anchor=tk.W, pady=2)
+        
+        # OCR mode radio button
         ocr_radio = ttk.Radiobutton(
             mode_column, 
             text="🔍 OCR Mode (Recommended)", 
-            variable=self.use_ocr, 
-            value=True
+            variable=self.processing_mode,
+            value="ocr"
         )
         ocr_radio.pack(anchor=tk.W, pady=2)
         
+        # Image mode radio button
         image_radio = ttk.Radiobutton(
             mode_column, 
             text="📷 Image Mode", 
-            variable=self.use_ocr, 
-            value=False
+            variable=self.processing_mode,
+            value="image"
         )
         image_radio.pack(anchor=tk.W, pady=2)
         
@@ -247,6 +259,11 @@ The system will extract invoice details and item lines and save them as a unifie
         # Update process button text
         self._update_process_button_text()
     
+    def _get_processing_mode(self):
+        """Get current processing mode"""
+        mode = self.processing_mode.get().upper()
+        return mode
+    
     def _update_process_button_text(self):
         """Update process button text based on selection"""
         if hasattr(self, 'process_button'):
@@ -302,7 +319,7 @@ Get a key at: https://console.anthropic.com/
             self.file_label.config(text=display_name, foreground='black')
             
             # Add to log
-            mode_text = "OCR" if self.use_ocr.get() else "Image"
+            mode_text = self._get_processing_mode()
             sections = []
             if self.process_intro.get():
                 sections.append("INTRO")
@@ -310,9 +327,9 @@ Get a key at: https://console.anthropic.com/
                 sections.append("MAIN")
             sections_text = " + ".join(sections)
             
-            self.add_to_log(f"📁 Selected file: {file_path.name}")
+            self.add_to_log(f"📄 Selected file: {file_path.name}")
             self.add_to_log(f"   Full path: {filename}")
-            self.add_to_log(f"🔍 Processing mode: {mode_text}")
+            self.add_to_log(f"🎯 Processing mode: {mode_text}")
             self.add_to_log(f"📋 Sections: {sections_text}\n")
             
             # Enable process button
@@ -331,7 +348,7 @@ Get a key at: https://console.anthropic.com/
             return
         
         # Add to log
-        mode_text = "OCR" if self.use_ocr.get() else "Image"
+        mode_text = self._get_processing_mode()
         sections = []
         if self.process_intro.get():
             sections.append("INTRO")
@@ -376,16 +393,55 @@ Get a key at: https://console.anthropic.com/
             # Select processing mode
             process_intro = self.process_intro.get()
             process_main = self.process_main.get()
-            use_ocr = self.use_ocr.get()
+            processing_mode = self.processing_mode.get()
             
-            # Use the new full processor
-            result = process_full_invoice(
-                file_path=self.selected_file,
-                process_intro=process_intro,
-                process_main=process_main,
-                use_ocr=use_ocr,
-                progress_callback=update_progress
-            )
+            # Check which mode is selected
+            if processing_mode == "hybrid":
+                # Hybrid mode - use hybrid processor for MAIN
+                result = {"success": True, "intro": None, "main": None}
+                
+                if process_main:
+                    update_progress("Processing MAIN with Hybrid processor...")
+                    hybrid_result = process_invoice_simple_claude(
+                        self.selected_file,
+                        progress_callback=update_progress
+                    )
+                    if hybrid_result["success"]:
+                        result["main"] = hybrid_result["json_data"]
+                        result["extracted_text"] = hybrid_result.get("extracted_text", "")
+                        result["method_used"] = hybrid_result.get("method_used", "hybrid")
+                    else:
+                        result["success"] = False
+                        result["message"] = hybrid_result["message"]
+                        self.root.after(0, lambda: self.show_results(result))
+                        return
+                
+                if process_intro:
+                    update_progress("Processing INTRO...")
+                    # For INTRO, still use the regular processor with OCR
+                    intro_result = process_full_invoice(
+                        file_path=self.selected_file,
+                        process_intro=True,
+                        process_main=False,
+                        use_ocr=True,
+                        progress_callback=update_progress
+                    )
+                    if intro_result["success"] and "intro" in intro_result:
+                        result["intro"] = intro_result["intro"]
+                
+                result["message"] = "Hybrid processing completed successfully!"
+                
+            else:
+                # Regular mode - OCR or Image
+                use_ocr = (processing_mode == "ocr")
+                
+                result = process_full_invoice(
+                    file_path=self.selected_file,
+                    process_intro=process_intro,
+                    process_main=process_main,
+                    use_ocr=use_ocr,
+                    progress_callback=update_progress
+                )
             
             # Update results in main thread
             self.root.after(0, lambda: self.show_results(result))
@@ -444,10 +500,10 @@ Get a key at: https://console.anthropic.com/
             self.add_to_log("=" * 60)
             
             # Display formatted JSON
-            json_formatted = json.dumps(result['json_data'] if 'json_data' in result else {
+            json_formatted = json.dumps(result.get('json_data', {
                 k: v for k, v in result.items() 
                 if k not in ['success', 'message', 'output_file', 'extracted_text', 'processing_info']
-            }, ensure_ascii=False, indent=2)
+            }), ensure_ascii=False, indent=2)
             self.add_to_log(json_formatted)
             
             # Display OCR text if available
@@ -463,16 +519,13 @@ Get a key at: https://console.anthropic.com/
             self.add_to_log("=" * 60)
             self.add_to_log(f"⏱️ Total processing time: {duration_text}")
             
-            if 'json_data' in result and 'summary' in result['json_data']:
-                summary = result['json_data']['summary']
-                if 'total_lines' in summary:
-                    lines_count = summary['total_lines']
-                    avg_time_per_line = duration_seconds / max(lines_count, 1)
-                    self.add_to_log(f"📋 Lines processed: {lines_count}")
-                    self.add_to_log(f"⚡ Average time per line: {avg_time_per_line:.2f} seconds")
+            # Display method used if available
+            if 'method_used' in result:
+                self.add_to_log(f"🔧 Method used: {result['method_used']}")
             
-            mode_text = "OCR" if self.use_ocr.get() else "Image"
-            self.add_to_log(f"🔍 Processing mode: {mode_text}")
+            # Display processing mode
+            mode_text = self._get_processing_mode()
+            self.add_to_log(f"🎯 Processing mode: {mode_text}")
             
             self.results_text.configure(foreground='black')
             
@@ -492,6 +545,7 @@ Get a key at: https://console.anthropic.com/
             self.add_to_log(f"\n⏱️ Time until failure: {duration_text}")
                 
             self.add_to_log("\n💡 Troubleshooting tips:")
+            self.add_to_log("• Try Hybrid mode for automatic method selection")
             self.add_to_log("• Try OCR mode if you used Image mode")
             self.add_to_log("• Make sure the file is a clear invoice")
             self.add_to_log("• Check that API key is valid")

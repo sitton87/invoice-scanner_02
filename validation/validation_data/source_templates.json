@@ -1,0 +1,138 @@
+{
+  "test_5": [
+    {
+      "line": 1,
+      "barcode": "*8009470011174*",
+      "item_code": 29000126,
+      "description": "מונג אדולט סלמון וטונה היפו 12 ק״ג",
+      "quantity": "15.00 יח׳",
+      "unit_price": "318.00 ש״ח",
+      "discount_percent": "48.00%",
+      "price_after_discount": "165.36 ש״ח",
+      "total_amount": "2.480.40"
+    },
+    {
+      "line": 2,
+      "barcode": "*8009470011174*",
+      "item_code": 29000126,
+      "description": "מונג אדולט סלמון וטונה היפו 12 ק״ג",
+      "quantity": "1.00 יח׳",
+      "unit_price": "318.00 ש״ח",
+      "discount_percent": "99.00%",
+      "price_after_discount": "3.18 ש״ח",
+      "total_amount": 3.18
+    },
+    {
+      "line": 3,
+      "barcode": "*18009470014936*",
+      "item_code": 15170004,
+      "description": "מונג וט רנל ואוקסלייט רטוב 150 ג׳ כלב",
+      "quantity": "24.00 יח׳",
+      "unit_price": "6.70 ש״ח",
+      "discount_percent": "50.00%",
+      "price_after_discount": "3.35 ש״ח",
+      "total_amount": 80.4
+    },
+    {
+      "line": 4,
+      "barcode": "*18009470014912*",
+      "item_code": 15170003,
+      "description": "מונג וט גסטרואינטסטינל רטוב 150 ג׳ כלב |",
+      "quantity": "48.00 יח׳",
+      "unit_price": "6.70 ש״ח",
+      "discount_percent": "50.00%",
+      "price_after_discount": "3.35 ש״ח",
+      "total_amount": 160.8
+    },
+    {
+      "line": 5,
+      "barcode": "*8009470011570*",
+      "item_code": 29000226,
+      "description": "מונג מיני אדולט סלמון ואורז 2.5 ק״ג",
+      "quantity": "4.00 יח׳",
+      "unit_price": "100.00 ש״ח",
+      "discount_percent": "57.00%",
+      "price_after_discount": "43.00 ש״ח",
+      "total_amount": 172.0
+    },
+    {
+      "line": 6,
+      "barcode": "*8009470011570*",
+      "item_code": 29000226,
+      "description": "מונג מיני אדולט סלמון ואורז 2.5 ק״ג",
+      "quantity": "8.00 יח׳",
+      "unit_price": "100.00 ש״ח",
+      "discount_percent": "57.00%",
+      "price_after_discount": "43.00 ש״ח",
+      "total_amount": 344.0
+    }
+  ],
+  "test_5_u": [
+    {
+      "line": 1,
+      "barcode": 8009470011174,
+      "item_code": 29000126,
+      "description": "מונג אדולט סלמון וטונה היפו 12 ק״ג",
+      "quantity": "15.00 יח׳",
+      "unit_price": "318.00 ש״ח",
+      "discount_percent": 48.0,
+      "price_after_discount": 165.36,
+      "total_amount": "2.480.40"
+    },
+    {
+      "line": 2,
+      "barcode": 8009470011174,
+      "item_code": 29000126,
+      "description": "מונג אדולט סלמון וטונה היפו 12 ק״ג",
+      "quantity": "1.00 יח׳",
+      "unit_price": "318.00 ש״ח",
+      "discount_percent": 99.0,
+      "price_after_discount": 3.18,
+      "total_amount": 3.18
+    },
+    {
+      "line": 3,
+      "barcode": 18009470014936,
+      "item_code": 15170004,
+      "description": "מונג וט רנל ואוקסלייט רטוב 150 ג׳ כלב",
+      "quantity": "24.00 יח׳",
+      "unit_price": "6.70 ש״ח",
+      "discount_percent": 50.0,
+      "price_after_discount": 3.35,
+      "total_amount": 80.4
+    },
+    {
+      "line": 4,
+      "barcode": 18009470014912,
+      "item_code": 15170003,
+      "description": "מונג וט גסטרואינטסטינל רטוב 150 ג׳ כלב |",
+      "quantity": "48.00 יח׳",
+      "unit_price": "6.70 ש״ח",
+      "discount_percent": 50.0,
+      "price_after_discount": 3.35,
+      "total_amount": 160.8
+    },
+    {
+      "line": 5,
+      "barcode": 8009470011570,
+      "item_code": 29000226,
+      "description": "מונג מיני אדולט סלמון ואורז 2.5 ק״ג",
+      "quantity": "4.00 יח׳",
+      "unit_price": "100.00 ש״ח",
+      "discount_percent": 57.0,
+      "price_after_discount": 43.0,
+      "total_amount": 172.0
+    },
+    {
+      "line": 6,
+      "barcode": 8009470011570,
+      "item_code": 29000226,
+      "description": "מונג מיני אדולט סלמון ואורז 2.5 ק״ג",
+      "quantity": "8.00 יח׳",
+      "unit_price": "100.00 ש״ח",
+      "discount_percent": 57.0,
+      "price_after_discount": 43.0,
+      "total_amount": 344.0
+    }
+  ]
+}

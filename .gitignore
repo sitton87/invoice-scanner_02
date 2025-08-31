@@ -7,3 +7,4 @@ venv/
 config.py
 invoice_env/
 output/
+temp/

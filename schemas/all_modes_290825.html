@@ -1,0 +1,1543 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>תרשים זרימה - כל המודים</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        margin: 0;
+        padding: 0;
+        direction: rtl;
+        line-height: 1.6;
+      }
+
+      .header {
+        background: white;
+        padding: 20px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .header h1 {
+        text-align: center;
+        color: #2c3e50;
+        margin: 0 0 20px 0;
+        font-size: 2.2em;
+        font-weight: 300;
+      }
+
+      .controls {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        flex-wrap: wrap;
+        margin-bottom: 15px;
+      }
+
+      .control-btn {
+        background: #3498db;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.95em;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .control-btn:hover {
+        background: #2980b9;
+        transform: translateY(-1px);
+      }
+
+      .control-btn.active {
+        background: #e74c3c;
+      }
+
+      .secondary-controls {
+        display: none;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .secondary-controls.show {
+        display: flex;
+      }
+
+      .secondary-btn {
+        background: #95a5a6;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.85em;
+        transition: all 0.3s ease;
+      }
+
+      .secondary-btn:hover {
+        background: #7f8c8d;
+      }
+
+      .secondary-btn.active {
+        background: #27ae60;
+      }
+
+      .container {
+        max-width: 1800px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        margin: 20px;
+        min-height: calc(100vh - 200px);
+      }
+
+      /* תצוגה אנכית */
+      .vertical-view {
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+      }
+
+      /* תצוגת לשוניות */
+      .tabs-view {
+        display: none;
+      }
+
+      .tab-content {
+        display: none;
+      }
+
+      .tab-content.active {
+        display: block;
+      }
+
+      /* תצוגה מקבילית */
+      .parallel-view {
+        display: none;
+        gap: 20px;
+        overflow-x: auto;
+        padding-bottom: 20px;
+      }
+
+      .parallel-column {
+        min-width: 500px;
+        flex-shrink: 0;
+        border: 2px solid #ecf0f1;
+        border-radius: 10px;
+        padding: 20px;
+        background: #fafbfc;
+      }
+
+      .mode-section {
+        border: 2px solid #ecf0f1;
+        border-radius: 10px;
+        padding: 30px;
+        background: #fafbfc;
+      }
+
+      .mode-title {
+        font-size: 1.6em;
+        font-weight: 600;
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 25px;
+        padding: 12px;
+        background: #ecf0f1;
+        border-radius: 8px;
+      }
+
+      .parallel-title {
+        font-size: 1.3em;
+        font-weight: 600;
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 20px;
+        padding: 8px;
+        background: #ecf0f1;
+        border-radius: 6px;
+      }
+
+      .flowchart {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 25px;
+        transform-origin: center;
+        transition: transform 0.3s ease;
+      }
+
+      .flowchart.zoomed {
+        transform: scale(0.8);
+      }
+
+      /* צבעים אחידים לכל המודים */
+      .box {
+        color: white;
+        padding: 10px 16px;
+        border-radius: 6px;
+        text-align: center;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        min-width: 160px;
+        font-size: 0.85em;
+        transition: transform 0.2s ease;
+      }
+
+      .parallel-view .box {
+        min-width: 140px;
+        font-size: 0.75em;
+        padding: 8px 12px;
+      }
+
+      .box:hover {
+        transform: translateY(-1px);
+      }
+
+      /* סוגי תיבות עם צבעים קבועים */
+      .ui-box {
+        background: #34495e;
+      }
+      .processor-box {
+        background: #3498db;
+      }
+      .api-box {
+        background: #e74c3c;
+        border: 2px solid #c0392b;
+      }
+      .ocr-box {
+        background: #f39c12;
+      }
+      .intro-box {
+        background: #9b59b6;
+      }
+      .main-box {
+        background: #27ae60;
+      }
+      .file-box {
+        background: #95a5a6;
+      }
+      .hybrid-box {
+        background: #e67e22;
+      }
+
+      .diamond {
+        background: #7f8c8d;
+        color: white;
+        padding: 12px;
+        clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+        width: 120px;
+        height: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-weight: 500;
+        font-size: 0.8em;
+      }
+
+      .parallel-view .diamond {
+        width: 100px;
+        height: 100px;
+        font-size: 0.7em;
+      }
+
+      .arrow {
+        font-size: 1.3em;
+        color: #7f8c8d;
+        margin: 2px 0;
+      }
+
+      .parallel-view .arrow {
+        font-size: 1.1em;
+      }
+
+      .branch {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        max-width: 900px;
+        margin: 15px 0;
+      }
+
+      .parallel-view .branch {
+        max-width: 100%;
+        gap: 10px;
+      }
+
+      .branch-left,
+      .branch-right {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex: 1;
+        margin: 0 10px;
+      }
+
+      .branch-title {
+        background: #2c3e50;
+        color: white;
+        padding: 6px 12px;
+        border-radius: 15px;
+        font-weight: 500;
+        margin-bottom: 12px;
+        font-size: 0.85em;
+      }
+
+      .parallel-view .branch-title {
+        font-size: 0.75em;
+        padding: 4px 8px;
+      }
+
+      .merge-arrow {
+        position: relative;
+        width: 100%;
+        height: 25px;
+        margin: 12px 0;
+      }
+
+      .merge-arrow::before {
+        content: "";
+        position: absolute;
+        left: 25%;
+        top: 50%;
+        width: 50%;
+        height: 2px;
+        background: #7f8c8d;
+      }
+
+      .merge-arrow::after {
+        content: "▼";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 1.1em;
+        color: #7f8c8d;
+        background: white;
+        padding: 0 6px;
+      }
+
+      .summary {
+        background: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        padding: 20px;
+        margin-top: 15px;
+      }
+
+      .parallel-view .summary {
+        padding: 12px;
+        font-size: 0.85em;
+      }
+
+      .summary h3 {
+        color: #2c3e50;
+        margin-bottom: 12px;
+        font-size: 1.2em;
+        font-weight: 600;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 6px;
+      }
+
+      .parallel-view .summary h3 {
+        font-size: 1em;
+      }
+
+      .summary h4 {
+        color: #34495e;
+        margin: 12px 0 6px 0;
+        font-size: 1em;
+      }
+
+      .parallel-view .summary h4 {
+        font-size: 0.9em;
+      }
+
+      .summary ul {
+        margin: 6px 0 12px 20px;
+      }
+
+      .summary li {
+        margin: 4px 0;
+        color: #555;
+      }
+
+      .description {
+        font-size: 0.75em;
+        color: rgba(255, 255, 255, 0.8);
+        margin-top: 3px;
+        font-weight: normal;
+      }
+
+      .navigation-arrows {
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 50;
+      }
+
+      .nav-arrow {
+        background: #3498db;
+        color: white;
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        font-size: 1.2em;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+      }
+
+      .nav-arrow:hover {
+        background: #2980b9;
+        transform: scale(1.1);
+      }
+
+      .nav-left {
+        left: 20px;
+      }
+
+      .nav-right {
+        right: 20px;
+      }
+
+      .back-to-top {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        background: #27ae60;
+        color: white;
+        border: none;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        font-size: 1.3em;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        z-index: 100;
+      }
+
+      .back-to-top:hover {
+        background: #229954;
+        transform: scale(1.1);
+      }
+
+      .final-summary {
+        margin-top: 40px;
+        background: #2c3e50;
+        color: white;
+        border-radius: 10px;
+        padding: 25px;
+      }
+
+      .final-summary h3 {
+        color: white;
+        border-bottom-color: #3498db;
+      }
+
+      .comparison-grid {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-top: 15px;
+      }
+
+      .comparison-item {
+        flex: 1;
+        min-width: 280px;
+      }
+
+      .comparison-item h4 {
+        color: #3498db;
+      }
+
+      @media (max-width: 768px) {
+        .controls {
+          gap: 8px;
+        }
+        .control-btn {
+          padding: 8px 12px;
+          font-size: 0.85em;
+        }
+        .branch {
+          flex-direction: column;
+          gap: 25px;
+        }
+        .branch-left,
+        .branch-right {
+          margin: 0;
+        }
+        .parallel-view {
+          flex-direction: column;
+        }
+        .parallel-column {
+          min-width: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>תרשים זרימה - מודי עיבוד חשבוניות</h1>
+
+      <div class="controls">
+        <button class="control-btn active" onclick="showVertical()">
+          תצוגה אנכית
+        </button>
+        <button class="control-btn" onclick="showTabs()">לשוניות</button>
+        <button class="control-btn" onclick="showParallel()">
+          תצוגה מקבילית
+        </button>
+        <button class="control-btn" onclick="printPage()">🖨️ הדפסה</button>
+      </div>
+
+      <div class="secondary-controls" id="tabControls">
+        <button class="secondary-btn active" onclick="showTab('image')">
+          Image Mode
+        </button>
+        <button class="secondary-btn" onclick="showTab('ocr')">OCR Mode</button>
+        <button class="secondary-btn" onclick="showTab('hybrid')">
+          Hybrid Mode
+        </button>
+      </div>
+
+      <div class="secondary-controls" id="parallelControls">
+        <button class="secondary-btn" onclick="zoomOut()">🔍 זום החוצה</button>
+        <button class="secondary-btn active" onclick="resetZoom()">
+          🔍 רגיל
+        </button>
+        <button class="secondary-btn" onclick="zoomIn()">🔍 זום פנימה</button>
+      </div>
+    </div>
+
+    <div class="navigation-arrows" id="navArrows" style="display: none">
+      <button class="nav-arrow nav-left" onclick="scrollContainer(-500)">
+        ←
+      </button>
+      <button class="nav-arrow nav-right" onclick="scrollContainer(500)">
+        →
+      </button>
+    </div>
+
+    <button class="back-to-top" onclick="scrollToTop()">↑</button>
+
+    <div class="container">
+      <!-- תצוגה אנכית -->
+      <div class="vertical-view" id="verticalView">
+        <!-- IMAGE MODE -->
+        <div class="mode-section">
+          <div class="mode-title">Image Mode - עיבוד תמונות ישיר</div>
+
+          <div class="flowchart">
+            <div class="box ui-box">
+              ui.py: process_in_background()<br /><span class="description"
+                >use_ocr = False</span
+              >
+            </div>
+            <div class="arrow">↓</div>
+            <div class="box processor-box">
+              full_processor.py: process_full_invoice()<br /><span
+                class="description"
+                >מנהל מרכזי</span
+              >
+            </div>
+            <div class="arrow">↓</div>
+            <div class="box file-box">
+              _prepare_image_for_analysis()<br /><span class="description"
+                >החזרת file_path ללא שינוי</span
+              >
+            </div>
+            <div class="arrow">↓</div>
+            <div class="diamond">איזה sections<br />לעבד?</div>
+
+            <div class="branch">
+              <div class="branch-left">
+                <div class="branch-title">INTRO</div>
+                <div class="box intro-box">
+                  intro_analyzer.py<br /><span class="description"
+                    >analyze_intro()</span
+                  >
+                </div>
+                <div class="arrow">↓</div>
+                <div class="box intro-box">
+                  _analyze_intro_from_image()<br /><span class="description"
+                    >base64 encoding</span
+                  >
+                </div>
+                <div class="arrow">↓</div>
+                <div class="box api-box">
+                  Claude API Call<br /><span class="description"
+                    >תמונה + פרומפט INTRO</span
+                  >
+                </div>
+                <div class="arrow">↓</div>
+                <div class="box intro-box">
+                  _clean_and_validate_intro()<br /><span class="description"
+                    >ניקוי + metadata</span
+                  >
+                </div>
+              </div>
+
+              <div class="branch-right">
+                <div class="branch-title">MAIN</div>
+                <div class="box main-box">
+                  processor.py<br /><span class="description"
+                    >process_invoice()</span
+                  >
+                </div>
+                <div class="arrow">↓</div>
+                <div class="diamond">PDF או<br />תמונה?</div>
+                <div class="arrow">↓</div>
+                <div class="box file-box">
+                  PDF: _pdf_to_image()<br />תמונה: _optimize_image()
+                </div>
+                <div class="arrow">↓</div>
+                <div class="box api-box">
+                  Claude API Call<br /><span class="description"
+                    >תמונה + SYSTEM/USER prompt</span
+                  >
+                </div>
+                <div class="arrow">↓</div>
+                <div class="box main-box">
+                  _cleanup_temp_files()<br /><span class="description"
+                    >מחיקת קבצים זמניים</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="merge-arrow"></div>
+            <div class="box processor-box">
+              _create_summary() + _save_full_result()
+            </div>
+            <div class="arrow">↓</div>
+            <div class="box ui-box">show_results()</div>
+          </div>
+
+          <div class="summary">
+            <h3>סיכום Image Mode</h3>
+            <h4>קריאות API (2):</h4>
+            <ul>
+              <li><strong>INTRO:</strong> תמונה + פרומפט פרטי חשבונית</li>
+              <li><strong>MAIN:</strong> תמונה + פרומפט רשימת פריטים</li>
+            </ul>
+            <h4>מתאים לחשבוניות:</h4>
+            <ul>
+              <li>איכות תמונה טובה, טקסט ברור, ללא צורך בתיקון סיבוב</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- OCR MODE -->
+        <div class="mode-section">
+          <div class="mode-title">OCR Mode - חילוץ טקסט מתקדם</div>
+
+          <div class="flowchart">
+            <div class="box ui-box">
+              ui.py: process_in_background()<br /><span class="description"
+                >use_ocr = True</span
+              >
+            </div>
+            <div class="arrow">↓</div>
+            <div class="box processor-box">
+              full_processor.py: process_full_invoice()
+            </div>
+            <div class="arrow">↓</div>
+            <div class="box ocr-box">
+              ocr_processor.py: process_invoice_with_ocr()<br /><span
+                class="description"
+                >שלב OCR ראשון</span
+              >
+            </div>
+            <div class="arrow">↓</div>
+            <div class="diamond">PDF או<br />תמונה?</div>
+            <div class="arrow">↓</div>
+            <div class="box file-box">
+              PDF: _process_pdf_for_ocr()<br />תמונה: _preprocess_image()
+            </div>
+            <div class="arrow">↓</div>
+            <div class="box ocr-box">
+              _auto_rotate_image()<br /><span class="description"
+                >זיהוי וחיקון סיבוב אוטומטי</span
+              >
+            </div>
+            <div class="arrow">↓</div>
+            <div class="box ocr-box">
+              _extract_text_tesseract()<br /><span class="description"
+                >Tesseract: heb+eng, PSM מרובים</span
+              >
+            </div>
+            <div class="arrow">↓</div>
+            <div class="box api-box">
+              Claude API Call #1<br /><span class="description"
+                >OCR Analysis</span
+              >
+            </div>
+            <div class="arrow">↓</div>
+            <div class="diamond">איזה sections<br />לעבד?</div>
+
+            <div class="branch">
+              <div class="branch-left">
+                <div class="branch-title">INTRO</div>
+                <div class="box intro-box">
+                  intro_analyzer.py<br /><span class="description"
+                    >analyze_intro()</span
+                  >
+                </div>
+                <div class="arrow">↓</div>
+                <div class="box intro-box">
+                  _analyze_intro_from_text()<br /><span class="description"
+                    >עיבוד טקסט OCR</span
+                  >
+                </div>
+                <div class="arrow">↓</div>
+                <div class="box api-box">
+                  Claude API Call #2<br /><span class="description"
+                    >INTRO Analysis</span
+                  >
+                </div>
+              </div>
+
+              <div class="branch-right">
+                <div class="branch-title">MAIN</div>
+                <div class="box main-box">
+                  full_processor.py<br /><span class="description"
+                    >_process_main_from_text()</span
+                  >
+                </div>
+                <div class="arrow">↓</div>
+                <div class="box api-box">
+                  Claude API Call #3<br /><span class="description"
+                    >MAIN Analysis</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="merge-arrow"></div>
+            <div class="box processor-box">
+              _create_summary() + _save_full_result()
+            </div>
+            <div class="arrow">↓</div>
+            <div class="box ui-box">show_results()</div>
+          </div>
+
+          <div class="summary">
+            <h3>סיכום OCR Mode</h3>
+            <h4>קריאות API (3):</h4>
+            <ul>
+              <li><strong>OCR Analysis:</strong> טקסט OCR → JSON מעובד</li>
+              <li><strong>INTRO:</strong> טקסט OCR → פרטי חשבונית</li>
+              <li><strong>MAIN:</strong> טקסט OCR → רשימת פריטים</li>
+            </ul>
+            <h4>מתאים לחשבוניות:</h4>
+            <ul>
+              <li>איכות נמוכה, סרוקות, מסובבות, זקוקות לעיבוד מתקדם</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- HYBRID MODE -->
+        <div class="mode-section">
+          <div class="mode-title">Hybrid Mode - שילוב חכם של שיטות</div>
+
+          <div class="flowchart">
+            <div class="box ui-box">
+              ui.py: process_in_background()<br /><span class="description"
+                >processing_mode = "hybrid"</span
+              >
+            </div>
+            <div class="arrow">↓</div>
+            <div class="box hybrid-box">
+              בחירה חכמה של שיטות<br /><span class="description"
+                >MAIN → פשוט, INTRO → מתקדם</span
+              >
+            </div>
+            <div class="arrow">↓</div>
+            <div class="diamond">איזה sections<br />לעבד?</div>
+
+            <div class="branch">
+              <div class="branch-left">
+                <div class="branch-title">INTRO - OCR Mode</div>
+                <div class="box processor-box">
+                  process_full_invoice()<br /><span class="description"
+                    >use_ocr=True</span
+                  >
+                </div>
+                <div class="arrow">↓</div>
+                <div class="box ocr-box">
+                  ocr_processor.py<br /><span class="description"
+                    >OCR מתקדם עם תיקון סיבוב</span
+                  >
+                </div>
+                <div class="arrow">↓</div>
+                <div class="box api-box">
+                  Claude API Call #1<br /><span class="description"
+                    >OCR Analysis</span
+                  >
+                </div>
+                <div class="arrow">↓</div>
+                <div class="box intro-box">intro_analyzer.py</div>
+                <div class="arrow">↓</div>
+                <div class="box api-box">
+                  Claude API Call #2<br /><span class="description"
+                    >INTRO Analysis</span
+                  >
+                </div>
+              </div>
+
+              <div class="branch-right">
+                <div class="branch-title">MAIN - Simple Hybrid</div>
+                <div class="box hybrid-box">
+                  hybrid_processor_01.py<br /><span class="description"
+                    >process_invoice_simple_claude()</span
+                  >
+                </div>
+                <div class="arrow">↓</div>
+                <div class="diamond">PDF או<br />تמונה?</div>
+                <div class="arrow">↓</div>
+                <div class="box file-box">
+                  PDF: pdf2image (DPI=300)<br />תמונה: OCR ישיר
+                </div>
+                <div class="arrow">↓</div>
+                <div class="box ocr-box">
+                  pytesseract OCR<br /><span class="description"
+                    >heb+eng, ללא תיקון סיבוב</span
+                  >
+                </div>
+                <div class="arrow">↓</div>
+                <div class="box api-box">
+                  Claude API Call #3<br /><span class="description"
+                    >MAIN Analysis</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="merge-arrow"></div>
+            <div class="box processor-box">
+              איחוד תוצאות + _create_summary()
+            </div>
+            <div class="arrow">↓</div>
+            <div class="box ui-box">show_results()</div>
+          </div>
+
+          <div class="summary">
+            <h3>סיכום Hybrid Mode</h3>
+            <h4>קריאות API (3):</h4>
+            <ul>
+              <li><strong>INTRO - OCR Analysis:</strong> OCR מתקדם</li>
+              <li><strong>INTRO - Analysis:</strong> פרטי חשבונית</li>
+              <li><strong>MAIN - Simple:</strong> OCR פשוט → רשימת פריטים</li>
+            </ul>
+            <h4>מתאים לחשבוניות:</h4>
+            <ul>
+              <li>חשבוניות סטנדרטיות, עיבוד המוני, מצב ברירת מחדל</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- תצוגת לשוניות -->
+      <div class="tabs-view" id="tabsView">
+        <div class="tab-content active" id="imageTab">
+          <div class="mode-section">
+            <div class="mode-title">Image Mode - עיבוד תמונות ישיר</div>
+
+            <div class="flowchart">
+              <div class="box ui-box">
+                ui.py: process_in_background()<br /><span class="description"
+                  >use_ocr = False</span
+                >
+              </div>
+              <div class="arrow">↓</div>
+              <div class="box processor-box">
+                full_processor.py: process_full_invoice()<br /><span
+                  class="description"
+                  >מנהל מרכזי</span
+                >
+              </div>
+              <div class="arrow">↓</div>
+              <div class="box file-box">
+                _prepare_image_for_analysis()<br /><span class="description"
+                  >החזרת file_path ללא שינוי</span
+                >
+              </div>
+              <div class="arrow">↓</div>
+              <div class="diamond">איזה sections<br />לעבד?</div>
+
+              <div class="branch">
+                <div class="branch-left">
+                  <div class="branch-title">INTRO</div>
+                  <div class="box intro-box">
+                    intro_analyzer.py<br /><span class="description"
+                      >analyze_intro()</span
+                    >
+                  </div>
+                  <div class="arrow">↓</div>
+                  <div class="box intro-box">
+                    _analyze_intro_from_image()<br /><span class="description"
+                      >base64 encoding</span
+                    >
+                  </div>
+                  <div class="arrow">↓</div>
+                  <div class="box api-box">
+                    Claude API Call<br /><span class="description"
+                      >תמונה + פרומפט INTRO</span
+                    >
+                  </div>
+                  <div class="arrow">↓</div>
+                  <div class="box intro-box">
+                    _clean_and_validate_intro()<br /><span class="description"
+                      >ניקוי + metadata</span
+                    >
+                  </div>
+                </div>
+
+                <div class="branch-right">
+                  <div class="branch-title">MAIN</div>
+                  <div class="box main-box">
+                    processor.py<br /><span class="description"
+                      >process_invoice()</span
+                    >
+                  </div>
+                  <div class="arrow">↓</div>
+                  <div class="diamond">PDF או<br />תמונה?</div>
+                  <div class="arrow">↓</div>
+                  <div class="box file-box">
+                    PDF: _pdf_to_image()<br />תמונה: _optimize_image()
+                  </div>
+                  <div class="arrow">↓</div>
+                  <div class="box api-box">
+                    Claude API Call<br /><span class="description"
+                      >תמונה + SYSTEM/USER prompt</span
+                    >
+                  </div>
+                  <div class="arrow">↓</div>
+                  <div class="box main-box">
+                    _cleanup_temp_files()<br /><span class="description"
+                      >מחיקת קבצים זמניים</span
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="merge-arrow"></div>
+              <div class="box processor-box">
+                _create_summary() + _save_full_result()
+              </div>
+              <div class="arrow">↓</div>
+              <div class="box ui-box">show_results()</div>
+            </div>
+
+            <div class="summary">
+              <h3>סיכום Image Mode</h3>
+              <h4>קריאות API (2):</h4>
+              <ul>
+                <li><strong>INTRO:</strong> תמונה + פרומפט פרטי חשבונית</li>
+                <li><strong>MAIN:</strong> תמונה + פרומפט רשימת פריטים</li>
+              </ul>
+              <h4>מתאים לחשבוניות:</h4>
+              <ul>
+                <li>איכות תמונה טובה, טקסט ברור, ללא צורך בתיקון סיבוב</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-content" id="ocrTab">
+          <div class="mode-section">
+            <div class="mode-title">OCR Mode - חילוץ טקסט מתקדם</div>
+
+            <div class="flowchart">
+              <div class="box ui-box">
+                ui.py: process_in_background()<br /><span class="description"
+                  >use_ocr = True</span
+                >
+              </div>
+              <div class="arrow">↓</div>
+              <div class="box processor-box">
+                full_processor.py: process_full_invoice()
+              </div>
+              <div class="arrow">↓</div>
+              <div class="box ocr-box">
+                ocr_processor.py: process_invoice_with_ocr()<br /><span
+                  class="description"
+                  >שלב OCR ראשון</span
+                >
+              </div>
+              <div class="arrow">↓</div>
+              <div class="diamond">PDF או<br />תמונה?</div>
+              <div class="arrow">↓</div>
+              <div class="box file-box">
+                PDF: _process_pdf_for_ocr()<br />תמונה: _preprocess_image()
+              </div>
+              <div class="arrow">↓</div>
+              <div class="box ocr-box">
+                _auto_rotate_image()<br /><span class="description"
+                  >זיהוי וחיקון סיבוב אוטומטי</span
+                >
+              </div>
+              <div class="arrow">↓</div>
+              <div class="box ocr-box">
+                _extract_text_tesseract()<br /><span class="description"
+                  >Tesseract: heb+eng, PSM מרובים</span
+                >
+              </div>
+              <div class="arrow">↓</div>
+              <div class="box api-box">
+                Claude API Call #1<br /><span class="description"
+                  >OCR Analysis</span
+                >
+              </div>
+              <div class="arrow">↓</div>
+              <div class="diamond">איזה sections<br />לעבד?</div>
+
+              <div class="branch">
+                <div class="branch-left">
+                  <div class="branch-title">INTRO</div>
+                  <div class="box intro-box">
+                    intro_analyzer.py<br /><span class="description"
+                      >analyze_intro()</span
+                    >
+                  </div>
+                  <div class="arrow">↓</div>
+                  <div class="box intro-box">
+                    _analyze_intro_from_text()<br /><span class="description"
+                      >עיבוד טקסט OCR</span
+                    >
+                  </div>
+                  <div class="arrow">↓</div>
+                  <div class="box api-box">
+                    Claude API Call #2<br /><span class="description"
+                      >INTRO Analysis</span
+                    >
+                  </div>
+                </div>
+
+                <div class="branch-right">
+                  <div class="branch-title">MAIN</div>
+                  <div class="box main-box">
+                    full_processor.py<br /><span class="description"
+                      >_process_main_from_text()</span
+                    >
+                  </div>
+                  <div class="arrow">↓</div>
+                  <div class="box api-box">
+                    Claude API Call #3<br /><span class="description"
+                      >MAIN Analysis</span
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="merge-arrow"></div>
+              <div class="box processor-box">
+                _create_summary() + _save_full_result()
+              </div>
+              <div class="arrow">↓</div>
+              <div class="box ui-box">show_results()</div>
+            </div>
+
+            <div class="summary">
+              <h3>סיכום OCR Mode</h3>
+              <h4>קריאות API (3):</h4>
+              <ul>
+                <li><strong>OCR Analysis:</strong> טקסט OCR → JSON מעובד</li>
+                <li><strong>INTRO:</strong> טקסט OCR → פרטי חשבונית</li>
+                <li><strong>MAIN:</strong> טקסט OCR → רשימת פריטים</li>
+              </ul>
+              <h4>מתאים לחשבוניות:</h4>
+              <ul>
+                <li>איכות נמוכה, סרוקות, מסובבות, זקוקות לעיבוד מתקדם</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-content" id="hybridTab">
+          <div class="mode-section">
+            <div class="mode-title">Hybrid Mode - שילוב חכם של שיטות</div>
+
+            <div class="flowchart">
+              <div class="box ui-box">
+                ui.py: process_in_background()<br /><span class="description"
+                  >processing_mode = "hybrid"</span
+                >
+              </div>
+              <div class="arrow">↓</div>
+              <div class="box hybrid-box">
+                בחירה חכמה של שיטות<br /><span class="description"
+                  >MAIN → פשוט, INTRO → מתקדם</span
+                >
+              </div>
+              <div class="arrow">↓</div>
+              <div class="diamond">איזה sections<br />לעבד?</div>
+
+              <div class="branch">
+                <div class="branch-left">
+                  <div class="branch-title">INTRO - OCR Mode</div>
+                  <div class="box processor-box">
+                    process_full_invoice()<br /><span class="description"
+                      >use_ocr=True</span
+                    >
+                  </div>
+                  <div class="arrow">↓</div>
+                  <div class="box ocr-box">
+                    ocr_processor.py<br /><span class="description"
+                      >OCR מתקדם עם תיקון סיבוב</span
+                    >
+                  </div>
+                  <div class="arrow">↓</div>
+                  <div class="box api-box">
+                    Claude API Call #1<br /><span class="description"
+                      >OCR Analysis</span
+                    >
+                  </div>
+                  <div class="arrow">↓</div>
+                  <div class="box intro-box">intro_analyzer.py</div>
+                  <div class="arrow">↓</div>
+                  <div class="box api-box">
+                    Claude API Call #2<br /><span class="description"
+                      >INTRO Analysis</span
+                    >
+                  </div>
+                </div>
+
+                <div class="branch-right">
+                  <div class="branch-title">MAIN - Simple Hybrid</div>
+                  <div class="box hybrid-box">
+                    hybrid_processor_01.py<br /><span class="description"
+                      >process_invoice_simple_claude()</span
+                    >
+                  </div>
+                  <div class="arrow">↓</div>
+                  <div class="diamond">PDF או<br />תמונה?</div>
+                  <div class="arrow">↓</div>
+                  <div class="box file-box">
+                    PDF: pdf2image (DPI=300)<br />تמונה: OCR ישיר
+                  </div>
+                  <div class="arrow">↓</div>
+                  <div class="box ocr-box">
+                    pytesseract OCR<br /><span class="description"
+                      >heb+eng, ללא תיקון סיבוב</span
+                    >
+                  </div>
+                  <div class="arrow">↓</div>
+                  <div class="box api-box">
+                    Claude API Call #3<br /><span class="description"
+                      >MAIN Analysis</span
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="merge-arrow"></div>
+              <div class="box processor-box">
+                איחוד תוצאות + _create_summary()
+              </div>
+              <div class="arrow">↓</div>
+              <div class="box ui-box">show_results()</div>
+            </div>
+
+            <div class="summary">
+              <h3>סיכום Hybrid Mode</h3>
+              <h4>קריאות API (3):</h4>
+              <ul>
+                <li><strong>INTRO - OCR Analysis:</strong> OCR מתקדם</li>
+                <li><strong>INTRO - Analysis:</strong> פרטי חשבונית</li>
+                <li><strong>MAIN - Simple:</strong> OCR פשוט → רשימת פריטים</li>
+              </ul>
+              <h4>מתאים לחשבוניות:</h4>
+              <ul>
+                <li>חשבוניות סטנדרטיות, עיבוד המוני, מצב ברירת מחדל</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- תצוגה מקבילית -->
+      <div class="parallel-view" id="parallelView">
+        <!-- IMAGE COLUMN -->
+        <div class="parallel-column">
+          <div class="parallel-title">Image Mode</div>
+
+          <div class="flowchart">
+            <div class="box ui-box">
+              ui.py<br /><span class="description">use_ocr = False</span>
+            </div>
+            <div class="arrow">↓</div>
+            <div class="box processor-box">
+              full_processor.py<br /><span class="description"
+                >process_full_invoice()</span
+              >
+            </div>
+            <div class="arrow">↓</div>
+            <div class="box file-box">
+              _prepare_image_for_analysis()<br /><span class="description"
+                >החזרת file_path ללא שינוי</span
+              >
+            </div>
+            <div class="arrow">↓</div>
+            <div class="diamond">איזה sections<br />לעבד?</div>
+
+            <div class="branch">
+              <div class="branch-left">
+                <div class="branch-title">INTRO</div>
+                <div class="box intro-box">
+                  intro_analyzer.py<br /><span class="description"
+                    >analyze_intro()</span
+                  >
+                </div>
+                <div class="arrow">↓</div>
+                <div class="box intro-box">
+                  _analyze_intro_from_image()<br /><span class="description"
+                    >base64 encoding</span
+                  >
+                </div>
+                <div class="arrow">↓</div>
+                <div class="box api-box">
+                  Claude API Call<br /><span class="description"
+                    >תמונה + פרומפט INTRO</span
+                  >
+                </div>
+                <div class="arrow">↓</div>
+                <div class="box intro-box">_clean_and_validate_intro()</div>
+              </div>
+              <div class="branch-right">
+                <div class="branch-title">MAIN</div>
+                <div class="box main-box">
+                  processor.py<br /><span class="description"
+                    >process_invoice()</span
+                  >
+                </div>
+                <div class="arrow">↓</div>
+                <div class="diamond">PDF או<br />תמונה?</div>
+                <div class="arrow">↓</div>
+                <div class="box file-box">
+                  PDF: _pdf_to_image()<br />תמונה: _optimize_image()
+                </div>
+                <div class="arrow">↓</div>
+                <div class="box api-box">
+                  Claude API Call<br /><span class="description"
+                    >תמונה + SYSTEM/USER prompt</span
+                  >
+                </div>
+                <div class="arrow">↓</div>
+                <div class="box main-box">_cleanup_temp_files()</div>
+              </div>
+            </div>
+
+            <div class="merge-arrow"></div>
+            <div class="box processor-box">
+              _create_summary() + _save_full_result()
+            </div>
+            <div class="arrow">↓</div>
+            <div class="box ui-box">show_results()</div>
+          </div>
+
+          <div class="summary">
+            <h3>Image Mode</h3>
+            <h4>2 קריאות API</h4>
+            <ul>
+              <li><strong>INTRO:</strong> תמונה + פרומפט פרטי חשבונית</li>
+              <li><strong>MAIN:</strong> תמונה + פרומפט רשימת פריטים</li>
+              <li>מתאים לתמונות איכותיות</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- OCR COLUMN -->
+        <div class="parallel-column">
+          <div class="parallel-title">OCR Mode</div>
+
+          <div class="flowchart">
+            <div class="box ui-box">
+              ui.py<br /><span class="description">use_ocr = True</span>
+            </div>
+            <div class="arrow">↓</div>
+            <div class="box processor-box">full_processor.py</div>
+            <div class="arrow">↓</div>
+            <div class="box ocr-box">ocr_processor.py</div>
+            <div class="arrow">↓</div>
+            <div class="box ocr-box">_auto_rotate_image()</div>
+            <div class="arrow">↓</div>
+            <div class="box ocr-box">_extract_text_tesseract()</div>
+            <div class="arrow">↓</div>
+            <div class="box api-box">Claude API #1</div>
+            <div class="arrow">↓</div>
+            <div class="diamond">sections?</div>
+
+            <div class="branch">
+              <div class="branch-left">
+                <div class="branch-title">INTRO</div>
+                <div class="box intro-box">intro_analyzer.py</div>
+                <div class="arrow">↓</div>
+                <div class="box api-box">Claude API #2</div>
+              </div>
+              <div class="branch-right">
+                <div class="branch-title">MAIN</div>
+                <div class="box main-box">_process_main_from_text()</div>
+                <div class="arrow">↓</div>
+                <div class="box api-box">Claude API #3</div>
+              </div>
+            </div>
+
+            <div class="merge-arrow"></div>
+            <div class="box processor-box">_create_summary()</div>
+            <div class="arrow">↓</div>
+            <div class="box ui-box">show_results()</div>
+          </div>
+
+          <div class="summary">
+            <h3>OCR Mode</h3>
+            <h4>3 קריאות API</h4>
+            <ul>
+              <li>OCR מתקדם עם תיקון סיבוב</li>
+              <li>טוב לתמונות סרוקות</li>
+              <li>הכי מדויק</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- HYBRID COLUMN -->
+        <div class="parallel-column">
+          <div class="parallel-title">Hybrid Mode</div>
+
+          <div class="flowchart">
+            <div class="box ui-box">
+              ui.py<br /><span class="description">hybrid mode</span>
+            </div>
+            <div class="arrow">↓</div>
+            <div class="box hybrid-box">בחירה חכמה</div>
+            <div class="arrow">↓</div>
+            <div class="diamond">sections?</div>
+
+            <div class="branch">
+              <div class="branch-left">
+                <div class="branch-title">INTRO - OCR</div>
+                <div class="box processor-box">process_full_invoice()</div>
+                <div class="arrow">↓</div>
+                <div class="box ocr-box">ocr_processor.py</div>
+                <div class="arrow">↓</div>
+                <div class="box api-box">Claude API #1</div>
+                <div class="arrow">↓</div>
+                <div class="box intro-box">intro_analyzer.py</div>
+                <div class="arrow">↓</div>
+                <div class="box api-box">Claude API #2</div>
+              </div>
+              <div class="branch-right">
+                <div class="branch-title">MAIN - Simple</div>
+                <div class="box hybrid-box">hybrid_processor_01.py</div>
+                <div class="arrow">↓</div>
+                <div class="box file-box">pdf2image</div>
+                <div class="arrow">↓</div>
+                <div class="box ocr-box">pytesseract</div>
+                <div class="arrow">↓</div>
+                <div class="box api-box">Claude API #3</div>
+              </div>
+            </div>
+
+            <div class="merge-arrow"></div>
+            <div class="box processor-box">איחוד תוצאות</div>
+            <div class="arrow">↓</div>
+            <div class="box ui-box">show_results()</div>
+          </div>
+
+          <div class="summary">
+            <h3>Hybrid Mode</h3>
+            <h4>3 קריאות API</h4>
+            <ul>
+              <li>איזון מהירות-דיוק</li>
+              <li>INTRO מתקדם, MAIN פשוט</li>
+              <li>ברירת מחדל מומלצת</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- סיכום כללי -->
+      <div class="final-summary">
+        <h3>השוואה בין המודים</h3>
+        <div class="comparison-grid">
+          <div class="comparison-item">
+            <h4>מהירות עיבוד</h4>
+            <ul>
+              <li><strong>Image Mode:</strong> הכי מהיר (2 API calls)</li>
+              <li><strong>Hybrid Mode:</strong> בינוני (3 API calls)</li>
+              <li>
+                <strong>OCR Mode:</strong> הכי איטי (3 API calls + OCR מתקדם)
+              </li>
+            </ul>
+          </div>
+          <div class="comparison-item">
+            <h4>דיוק תוצאות</h4>
+            <ul>
+              <li>
+                <strong>OCR Mode:</strong> הכי מדויק (תיקון סיבוב + עיבוד מתקדם)
+              </li>
+              <li>
+                <strong>Hybrid Mode:</strong> איזון טוב (דיוק ב-INTRO, מהירות
+                ב-MAIN)
+              </li>
+              <li><strong>Image Mode:</strong> תלוי באיכות התמונה המקורית</li>
+            </ul>
+          </div>
+          <div class="comparison-item">
+            <h4>מקרי שימוש מומלצים</h4>
+            <ul>
+              <li>
+                <strong>Image Mode:</strong> תמונות איכותיות, מהירות קריטית
+              </li>
+              <li>
+                <strong>Hybrid Mode:</strong> שימוש כללי, איזון מהירות-דיוק
+              </li>
+              <li><strong>OCR Mode:</strong> תמונות נמוכות, סרוקות, מסובבות</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let currentZoom = 1;
+
+      function showVertical() {
+        document.getElementById("verticalView").style.display = "flex";
+        document.getElementById("tabsView").style.display = "none";
+        document.getElementById("parallelView").style.display = "none";
+        document.getElementById("navArrows").style.display = "none";
+
+        document.getElementById("tabControls").classList.remove("show");
+        document.getElementById("parallelControls").classList.remove("show");
+
+        setActiveControl(0);
+      }
+
+      function showTabs() {
+        document.getElementById("verticalView").style.display = "none";
+        document.getElementById("tabsView").style.display = "block";
+        document.getElementById("parallelView").style.display = "none";
+        document.getElementById("navArrows").style.display = "none";
+
+        document.getElementById("tabControls").classList.add("show");
+        document.getElementById("parallelControls").classList.remove("show");
+
+        setActiveControl(1);
+      }
+
+      function showParallel() {
+        document.getElementById("verticalView").style.display = "none";
+        document.getElementById("tabsView").style.display = "none";
+        document.getElementById("parallelView").style.display = "flex";
+        document.getElementById("navArrows").style.display = "block";
+
+        document.getElementById("tabControls").classList.remove("show");
+        document.getElementById("parallelControls").classList.add("show");
+
+        setActiveControl(2);
+      }
+
+      function showTab(tabName) {
+        // Hide all tabs
+        document.querySelectorAll(".tab-content").forEach((tab) => {
+          tab.classList.remove("active");
+        });
+
+        // Show selected tab
+        document.getElementById(tabName + "Tab").classList.add("active");
+
+        // Update button states
+        document
+          .querySelectorAll("#tabControls .secondary-btn")
+          .forEach((btn) => {
+            btn.classList.remove("active");
+          });
+        event.target.classList.add("active");
+      }
+
+      function zoomOut() {
+        currentZoom = 0.8;
+        document.querySelectorAll(".flowchart").forEach((chart) => {
+          chart.classList.add("zoomed");
+        });
+        setActiveZoom(0);
+      }
+
+      function resetZoom() {
+        currentZoom = 1;
+        document.querySelectorAll(".flowchart").forEach((chart) => {
+          chart.classList.remove("zoomed");
+          chart.style.transform = "scale(1)";
+        });
+        setActiveZoom(1);
+      }
+
+      function zoomIn() {
+        currentZoom = 1.2;
+        document.querySelectorAll(".flowchart").forEach((chart) => {
+          chart.style.transform = "scale(1.2)";
+          chart.classList.remove("zoomed");
+        });
+        setActiveZoom(2);
+      }
+
+      function setActiveControl(index) {
+        document.querySelectorAll(".control-btn").forEach((btn, i) => {
+          if (i <= 2) {
+            // Only for the first 3 buttons (view controls)
+            btn.classList.toggle("active", i === index);
+          }
+        });
+      }
+
+      function setActiveZoom(index) {
+        document
+          .querySelectorAll("#parallelControls .secondary-btn")
+          .forEach((btn, i) => {
+            btn.classList.toggle("active", i === index);
+          });
+      }
+
+      function scrollContainer(distance) {
+        document.getElementById("parallelView").scrollBy({
+          left: distance,
+          behavior: "smooth",
+        });
+      }
+
+      function scrollToTop() {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      }
+
+      function printPage() {
+        window.print();
+      }
+
+      // Initialize
+      showVertical();
+    </script>
+  </body>
+</html>

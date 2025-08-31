@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>תרשים זרימה - Hybrid Mode</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background: linear-gradient(
+          135deg,
+          #ff9a9e 0%,
+          #fecfef 50%,
+          #fecfef 100%
+        );
+        margin: 0;
+        padding: 20px;
+        direction: rtl;
+      }
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        padding: 30px;
+      }
+      h1 {
+        text-align: center;
+        color: #8e24aa;
+        margin-bottom: 30px;
+        font-size: 2.2em;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .flowchart {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        padding: 20px;
+      }
+      .box {
+        background: #e91e63;
+        color: white;
+        padding: 15px 25px;
+        border-radius: 12px;
+        text-align: center;
+        font-weight: bold;
+        box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
+        min-width: 200px;
+        transition: transform 0.3s ease;
+      }
+      .box:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(233, 30, 99, 0.4);
+      }
+      .diamond {
+        background: #ff5722;
+        color: white;
+        padding: 20px;
+        clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+        width: 180px;
+        height: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-weight: bold;
+        box-shadow: 0 4px 15px rgba(255, 87, 34, 0.3);
+      }
+      .hybrid-main-box {
+        background: #ff6f00;
+        box-shadow: 0 4px 15px rgba(255, 111, 0, 0.3);
+        border: 3px solid #e65100;
+      }
+      .intro-ocr-box {
+        background: #3f51b5;
+        box-shadow: 0 4px 15px rgba(63, 81, 181, 0.3);
+      }
+      .api-box {
+        background: #f44336;
+        color: white;
+        border: 3px solid #d32f2f;
+        animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+      .pdf2image-box {
+        background: #009688;
+        color: white;
+        border: 2px solid #004d40;
+      }
+      .simple-ocr-box {
+        background: #795548;
+        color: white;
+        border: 2px solid #3e2723;
+      }
+      .arrow {
+        font-size: 2em;
+        color: #8e24aa;
+        margin: 5px 0;
+      }
+      .branch {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        max-width: 1200px;
+        margin: 20px 0;
+      }
+      .branch-left,
+      .branch-right {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex: 1;
+        margin: 0 20px;
+      }
+      .branch-title {
+        background: #8e24aa;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 25px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+      .merge-arrow {
+        position: relative;
+        width: 100%;
+        height: 40px;
+        margin: 20px 0;
+      }
+      .merge-arrow::before {
+        content: "";
+        position: absolute;
+        left: 20%;
+        top: 50%;
+        width: 60%;
+        height: 2px;
+        background: #8e24aa;
+      }
+      .merge-arrow::after {
+        content: "▼";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 1.5em;
+        color: #8e24aa;
+        background: white;
+        padding: 0 10px;
+      }
+      .summary {
+        background: #fce4ec;
+        border: 2px solid #e91e63;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 30px;
+        direction: rtl;
+      }
+      .summary h3 {
+        color: #8e24aa;
+        margin-bottom: 15px;
+        border-bottom: 2px solid #e91e63;
+        padding-bottom: 5px;
+      }
+      .description {
+        font-size: 0.9em;
+        color: rgba(255, 255, 255, 0.9);
+        margin-top: 5px;
+        font-weight: normal;
+      }
+      .highlight-hybrid {
+        background: linear-gradient(45deg, #ff6f00, #ff8f00);
+        box-shadow: 0 0 20px rgba(255, 111, 0, 0.5);
+        border: 3px solid #e65100;
+      }
+      .different-path {
+        border: 3px dashed #8e24aa;
+        background: #f3e5f5;
+        color: #4a148c;
+      }
+      .smart-choice {
+        background: #4caf50;
+        border: 2px solid #2e7d32;
+        animation: glow 3s infinite;
+      }
+      @keyframes glow {
+        0% {
+          box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+        50% {
+          box-shadow: 0 4px 25px rgba(76, 175, 80, 0.6);
+        }
+        100% {
+          box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🎯 תרשים זרימה - Hybrid Mode</h1>
+
+      <div class="flowchart">
+        <!-- התחלה -->
+        <div class="box">
+          <div>Hybrid Mode התחלה</div>
+        </div>
+
+        <div class="arrow">↓</div>
+
+        <div class="box">
+          <div>ui.py: process_in_background()</div>
+          <div class="description">קביעה: processing_mode = "hybrid"</div>
+        </div>
+
+        <div class="arrow">↓</div>
+
+        <div class="box smart-choice">
+          <div>🎯 Hybrid Logic</div>
+          <div>בחירה חכמה של שיטות עיבוד</div>
+          <div class="description">MAIN → היברידי, INTRO → OCR</div>
+        </div>
+
+        <div class="arrow">↓</div>
+
+        <div class="diamond">
+          <div>איזה חלקים לעבד?<br />INTRO + MAIN</div>
+        </div>
+
+        <!-- הסתעפות -->
+        <div class="branch">
+          <!-- MAIN Branch - Hybrid -->
+          <div class="branch-right">
+            <div class="branch-title">MAIN Branch - Simple Hybrid</div>
+
+            <div class="box highlight-hybrid">
+              <div>hybrid_processor_01.py</div>
+              <div>process_invoice_simple_claude()</div>
+              <div class="description">עיבוד היברידי פשוט</div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="diamond">
+              <div>סוג הקובץ?<br />PDF או תמונה</div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="box pdf2image-box">
+              <div>אם PDF: _process_pdf_simple()</div>
+              <div>אם תמונה: _process_image_simple()</div>
+              <div class="description">pdf2image או OCR ישיר</div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="box pdf2image-box">
+              <div>🔄 convert_from_path()</div>
+              <div class="description">pdf2image: DPI=300, poppler</div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="box simple-ocr-box">
+              <div>📝 pytesseract OCR</div>
+              <div class="description">OCR פשוט: heb+eng, בלי תיקון סיבוב</div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="box api-box">
+              <div>Claude API Call #1</div>
+              <div class="description">
+                _process_with_claude() - טקסט → JSON
+              </div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="box highlight-hybrid">
+              <div>JSON Response</div>
+              <div class="description">רשימת פריטים מוכנה</div>
+            </div>
+          </div>
+
+          <!-- INTRO Branch - OCR Mode -->
+          <div class="branch-left">
+            <div class="branch-title">INTRO Branch - OCR Mode</div>
+
+            <div class="box different-path">
+              <div>🔍 process_full_invoice()</div>
+              <div>use_ocr=True, process_intro=True</div>
+              <div class="description">אותו תהליך OCR מלא</div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="box intro-ocr-box">
+              <div>ocr_processor.py</div>
+              <div>process_invoice_with_ocr()</div>
+              <div class="description">OCR מתקדם עם תיקון סיבוב</div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="box intro-ocr-box">
+              <div>_auto_rotate_image()</div>
+              <div class="description">זיהוי וחיקון סיבוב</div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="box intro-ocr-box">
+              <div>_extract_text_tesseract()</div>
+              <div class="description">Tesseract עם PSM מרובים</div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="box api-box">
+              <div>Claude API Call #2</div>
+              <div class="description">OCR Analysis</div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="box intro-ocr-box">
+              <div>intro_analyzer.py</div>
+              <div>analyze_intro()</div>
+              <div class="description">עיבוד INTRO מטקסט OCR</div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="box api-box">
+              <div>Claude API Call #3</div>
+              <div class="description">INTRO Analysis</div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <div class="box intro-ocr-box">
+              <div>INTRO JSON Response</div>
+              <div class="description">פרטי חשבונית מוכנים</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- איחוד -->
+        <div class="merge-arrow"></div>
+
+        <div class="box">
+          <div>full_processor.py: איחוד תוצאות</div>
+          <div class="description">result["main"] + result["intro"]</div>
+        </div>
+
+        <div class="arrow">↓</div>
+
+        <div class="box">
+          <div>_create_summary()</div>
+          <div class="description">חישוב סטטיסטיקות</div>
+        </div>
+
+        <div class="arrow">↓</div>
+
+        <div class="box">
+          <div>_save_full_result()</div>
+          <div class="description">שמירה עם timestamp</div>
+        </div>
+
+        <div class="arrow">↓</div>
+
+        <div class="box">
+          <div>ui.py: show_results()</div>
+          <div class="description">הצגת תוצאות למשתמש</div>
+        </div>
+      </div>
+
+      <!-- סיכום -->
+      <div class="summary">
+        <h3>🎯 סיכום תהליך Hybrid Mode</h3>
+
+        <h4>הגיון היברידי:</h4>
+        <ul>
+          <li>
+            <strong>MAIN Branch:</strong> שיטה פשוטה ומהירה - pdf2image + OCR
+            בסיסי + Claude
+          </li>
+          <li>
+            <strong>INTRO Branch:</strong> שיטה מתקדמת - OCR מלא עם תיקון סיבוב
+          </li>
+          <li>
+            <strong>שילוב הטוב משני העולמות</strong> - מהירות ל-MAIN, דיוק
+            ל-INTRO
+          </li>
+        </ul>
+
+        <h4>קריאות API לקלוד (סה"כ 3):</h4>
+        <ul>
+          <li>
+            <strong>API #1 (MAIN):</strong> hybrid_processor_01 → טקסט OCR פשוט
+            → רשימת פריטים
+          </li>
+          <li>
+            <strong>API #2 (INTRO - OCR Analysis):</strong> ocr_processor → טקסט
+            OCR מתקדם
+          </li>
+          <li>
+            <strong>API #3 (INTRO - Analysis):</strong> intro_analyzer → פרטי
+            חשבונית
+          </li>
+        </ul>
+
+        <h4>יתרונות Hybrid Mode:</h4>
+        <ul>
+          <li><strong>מהירות:</strong> MAIN מעובד בשיטה פשוטה וחסכונית</li>
+          <li>
+            <strong>דיוק:</strong> INTRO מעובד בשיטה מתקדמת עם תיקון סיבוב
+          </li>
+          <li><strong>גמישות:</strong> בחירה אופטימלית לכל חלק בנפרד</li>
+          <li>
+            <strong>חסכון במשאבים:</strong> לא מבזבז זמן על תיקון סיבוב למטרות
+            פשוטות
+          </li>
+        </ul>
+
+        <h4>סקריפטים מעורבים:</h4>
+        <ul>
+          <li><strong>ui.py</strong> - ממשק משתמש ותיאום היברידי</li>
+          <li><strong>full_processor.py</strong> - איחוד תוצאות משני הענפים</li>
+          <li>
+            <strong>hybrid_processor_01.py</strong> - עיבוד MAIN פשוט ומהיר
+          </li>
+          <li><strong>ocr_processor.py</strong> - עיבוד INTRO מתקדם</li>
+          <li><strong>intro_analyzer.py</strong> - ניתוח פרטי חשבונית</li>
+        </ul>
+
+        <h4>טכנולוגיות ייחודיות:</h4>
+        <ul>
+          <li><strong>pdf2image:</strong> המרת PDF פשוטה ומהירה עם poppler</li>
+          <li>
+            <strong>Tesseract בסיסי:</strong> OCR ישיר ללא עיבודים מורכבים
+          </li>
+          <li>
+            <strong>OCR מתקדם:</strong> רק עבור INTRO - עם תיקון סיבוב
+            ואופטימיזציה
+          </li>
+        </ul>
+
+        <h4>מקרי שימוש מומלצים:</h4>
+        <ul>
+          <li>
+            <strong>חשבוניות סטנדרטיות:</strong> איכות בינונית, זקוקות לאיזון
+            מהירות-דיוק
+          </li>
+          <li>
+            <strong>עיבוד המוני:</strong> כאשר מהירות חשובה אבל דיוק INTRO קריטי
+          </li>
+          <li><strong>משתמשים לא בטוחים:</strong> מצב ברירת מחדל מומלץ</li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>

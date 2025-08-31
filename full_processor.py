@@ -12,7 +12,7 @@ from intro_analyzer import IntroAnalyzer
 from processor import InvoiceProcessor
 from ocr_processor import OCRProcessor
 from config import get_output_filename
-
+from config import get_custom_output_filename
 
 class FullInvoiceProcessor:
     """מעבד מלא לחשבוניות - INTRO + MAIN"""
@@ -274,11 +274,24 @@ class FullInvoiceProcessor:
             return f"{hours}:{minutes:02d}:{remaining_seconds:04.1f} שעות"
     
     def _save_full_result(self, original_file_path, result):
-        """שמירת התוצאה המלאה לקובץ"""
+        """שמירת התוצאה המלאה לקובץ עם timestamp"""
         try:
-            # יצירת שם קובץ עם סיומת מתאימה
-            original_path = Path(original_file_path)
-            output_path = original_path.parent / f"{original_path.stem}_full_analysis.json"
+            # קביעת שיטה מתוך הנתונים
+            processing_info = result.get("processing_info", {})
+            use_ocr = processing_info.get("use_ocr", True)
+            method = "OCR" if use_ocr else "IMAGE"
+            
+            # קביעת חלקים שעובדו
+            sections_processed = result.get("summary", {}).get("processed_sections", [])
+            if not sections_processed:
+                # חישוב מהנתונים הקיימים
+                sections_processed = []
+                if "intro" in result:
+                    sections_processed.append("INTRO")
+                if "main" in result:
+                    sections_processed.append("MAIN")
+            
+            output_path = get_custom_output_filename(original_file_path, method, sections_processed)
             
             with open(output_path, 'w', encoding='utf-8') as f:
                 json.dump(result, f, ensure_ascii=False, indent=2)
