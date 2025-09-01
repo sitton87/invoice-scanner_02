@@ -52,11 +52,12 @@ class SourceDataManager:
 class GroundTruthEditor:
     """עורך נתוני Ground Truth מתקדם עם ייצוא וייבוא"""
     
-    def __init__(self, parent, template_data: Dict[str, Any], callback, source_manager: SourceDataManager):
+    def __init__(self, parent, template_data: Dict[str, Any], callback, source_manager: SourceDataManager, file_prefix: str = "template"):
         self.parent = parent
         self.template_data = template_data
         self.callback = callback
         self.source_manager = source_manager
+        self.file_prefix = file_prefix  # השם שנשלח מהממשק הראשי
         self.entries = {}
         self.create_editor_window()
     
@@ -173,31 +174,33 @@ class GroundTruthEditor:
                   command=self.window.destroy).pack(side=tk.LEFT, padx=5)
     
     def export_template_to_file(self):
-        """ייצוא התבנית הנוכחית לקובץ JSON"""
+        """ייצוא התבנית הנוכחית לקובץ JSON - שמירה אוטומטית לתיקייה"""
         try:
-            # איסוף הנתונים הנוכחיים
             ground_truth_data = self.collect_current_data()
             
             if not ground_truth_data or all(len(item) <= 1 for item in ground_truth_data):
                 messagebox.showwarning("אזהרה", "אין נתונים לייצוא")
                 return
             
-            # בחירת מיקום השמירה
-            filename = filedialog.asksaveasfilename(
-                title="שמור תבנית כ-JSON",
-                defaultextension=".json",
-                filetypes=[("JSON files", "*.json"), ("All files", "*.*")],
-                initialfilename="ground_truth_template.json"
-            )
+            # יצירת תיקיית היעד
+            templates_dir = Path(r"C:\projects\invoice2claude\validation\validation_data\templates")
+            templates_dir.mkdir(parents=True, exist_ok=True)
             
-            if not filename:
-                return
+            # יצירת שם הקובץ עם תאריך ושעה
+            now = datetime.now()
+            timestamp = now.strftime("%H%M_%d%m%y")  # HHMM_DDMMYY
+            
+            # השתמש בקידומת שנשלחה מהממשק הראשי
+            filename = f"{self.file_prefix}_{timestamp}.json"
+            full_path = templates_dir / filename
             
             # הכנת נתונים מפורטים לייצוא
             export_data = {
                 "template_info": {
-                    "created_at": datetime.now().isoformat(),
-                    "fields_count": len(self.template_data['fields']) - 1,  # מבלי 'line'
+                    "created_at": now.isoformat(),
+                    "export_time": now.strftime("%d/%m/%Y %H:%M:%S"),
+                    "file_prefix": self.file_prefix,
+                    "fields_count": len(self.template_data['fields']) - 1,
                     "lines_count": len(ground_truth_data),
                     "description": "Ground Truth Template exported from Advanced Validation Suite"
                 },
@@ -209,13 +212,20 @@ class GroundTruthEditor:
             }
             
             # שמירה לקובץ
-            with open(filename, 'w', encoding='utf-8') as f:
+            with open(full_path, 'w', encoding='utf-8') as f:
                 json.dump(export_data, f, ensure_ascii=False, indent=2)
             
-            messagebox.showinfo("הצלחה", f"התבנית יוצאה בהצלחה לקובץ:\n{filename}")
+            messagebox.showinfo("הצלחה", 
+                               f"התבנית נשמרה בהצלחה:\n"
+                               f"שם קובץ: {filename}\n"
+                               f"נתיב: {full_path}")
             
         except Exception as e:
             messagebox.showerror("שגיאה", f"שגיאה בייצוא התבנית: {str(e)}")
+    
+    def get_file_prefix(self):
+        """מחזיר את הקידומת שנשלחה מהממשק הראשי"""
+        return self.file_prefix
 
     def import_template_from_file(self):
         """ייבוא תבנית מקובץ JSON"""
@@ -747,7 +757,19 @@ class EnhancedValidationGUI:
             return
         
         template_data = self.processor.extract_all_fields_template()
-        editor = GroundTruthEditor(self.root, template_data, self.on_ground_truth_saved, self.source_manager)
+        
+        # חילוץ קידומת מהקובץ הראשון הטעון
+        first_file_key = list(self.processor.loaded_files.keys())[0]
+        if '_' in first_file_key:
+            parts = first_file_key.split('_')
+            if len(parts) >= 2:
+                file_prefix = f"{parts[0]}_{parts[1]}"
+            else:
+                file_prefix = parts[0]
+        else:
+            file_prefix = first_file_key.split('.')[0] if '.' in first_file_key else first_file_key
+        
+        editor = GroundTruthEditor(self.root, template_data, self.on_ground_truth_saved, self.source_manager, file_prefix)
 
     def on_ground_truth_saved(self, ground_truth_data):
         """טיפול בשמירת Ground Truth"""
