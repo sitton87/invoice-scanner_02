@@ -16,8 +16,6 @@ import re
 import imutils
 import datetime
 from config import ANTHROPIC_API_KEY, CLAUDE_MODEL, validate_api_key, get_custom_output_filename
-from table_extractor import TableExtractor, format_table_data_as_text
-
 
 class OCRProcessor:
     """מעבד OCR עם תיקון סיבוב אוטומטי"""
@@ -50,31 +48,13 @@ class OCRProcessor:
                 progress_callback("בודק כיוון תמונה ומתקן סיבוב...")
             
             # *** תיקון סיבוב אוטומטי - זה החלק החדש! ***
-            extractor = TableExtractor()
-            corrected_image = extractor.smart_rotation_correction(processed_image, progress_callback)
+            corrected_image = self._auto_rotate_image(processed_image, progress_callback)
             
             if progress_callback:
                 progress_callback("מבצע OCR לחילוץ טקסט...")
             
-            table_data = extract_table_data_advanced(corrected_image, progress_callback)
-            if table_data and table_data.get("table_detected"):
-                # השתמש בנתוני הטבלה המתקדמים
-                extracted_text = self._format_table_data_as_text(table_data)
-            else:
-                # חזור למצב רגיל
-                extracted_text = self._extract_text_tesseract(corrected_image)
-        
             # חילוץ טקסט עם OCR על התמונה המתוקנת
-            # נסה חילוץ טבלה מתקדם
-                from table_extractor import extract_table_data_advanced, format_table_data_as_text
-
-                table_data = extract_table_data_advanced(corrected_image, progress_callback)
-                if table_data and table_data.get("table_detected"):
-                    # השתמש בנתוני הטבלה המתקדמים
-                    extracted_text = format_table_data_as_text(table_data)
-                else:
-                    # חזור למצב רגיל
-                    extracted_text = self._extract_text_tesseract(corrected_image)
+            extracted_text = self._extract_text_tesseract(corrected_image)
             
             if progress_callback:
                 progress_callback("שולח טקסט לClaude לניתוח...")
@@ -138,7 +118,7 @@ class OCRProcessor:
                     progress_callback(f"זוהה סיבוב: {detected_angle}° (ביטחון: {confidence:.1f})")
                 
                 # רק אם הביטחון גבוה מספיק - בצע סיבוב
-                if confidence > 1.0 and abs(detected_angle) > 1.0:
+                if confidence > 1.5 and detected_angle != 0:
                     if progress_callback:
                         progress_callback(f"מסובב תמונה ב-{detected_angle} מעלות...")
                     
@@ -184,8 +164,7 @@ class OCRProcessor:
             
             # זיהוי קווים עם Hough Transform
             edges = cv2.Canny(binary, 50, 150, apertureSize=3)
-            lines = cv2.HoughLines(edges, 1, np.pi/360, threshold=50)  # רזולוציה גבוהה יותר
-
+            lines = cv2.HoughLines(edges, 1, np.pi/180, threshold=100)
             
             if lines is not None and len(lines) > 0:
                 angles = []
@@ -197,7 +176,9 @@ class OCRProcessor:
                 median_angle = np.median(angles)
                 
                 # עגל לזוויות של 90 מעלות
-                if abs(median_angle) > 0.1:  # רגיש לזוויות קטנות
+                if abs(median_angle) > 45:
+                    rotation_angle = 90 if median_angle > 0 else -90
+                elif abs(median_angle) > 1:
                     rotation_angle = median_angle
                 else:
                     rotation_angle = 0
@@ -247,7 +228,7 @@ class OCRProcessor:
             resized = cv2.resize(enhanced, (new_width, new_height), interpolation=cv2.INTER_CUBIC)
             
             # 4. שיפור שולי טקסט
-            kernel = np.ones((3,3), np.uint8)
+            kernel = np.ones((2,2), np.uint8)
             processed = cv2.morphologyEx(resized, cv2.MORPH_CLOSE, kernel)
             
             return processed
@@ -428,9 +409,6 @@ class OCRProcessor:
 1. תחילה זהה את כותרות העמודות
 2. ואז חלץ כל שורה לפי הסדר הנכון
 3. חלץ את כל השורות - אל תדלג על כלום!
-4. קיים מינימום שורה אחת של פריטים.
-5. תחזיר את כל הפריטים הקיימים בחשבונית.
-6. שים לב שהעמודות לא חייבות להיות בסדר קבוע.
 """
 
         try:

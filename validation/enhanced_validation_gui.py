@@ -1,5 +1,5 @@
 """
-enhanced_validation_gui.py - GUI בסיסי לוולידציה
+enhanced_validation_gui.py - GUI בסיסי לוולידציה עם פיצ'ר ייצוא תבניות
 """
 
 import tkinter as tk
@@ -8,6 +8,7 @@ from pathlib import Path
 import json
 import threading
 from typing import Dict, List, Any, Optional
+from datetime import datetime
 
 from character_kpi_calculator import CharacterKPICalculator
 from enhanced_validation_processor import EnhancedValidationProcessor, ValidationMethod
@@ -47,10 +48,9 @@ class SourceDataManager:
         """קבלת כל נתוני המקור השמורים"""
         return self.saved_sources.copy()
 
-# הוסף את הקלאס הזה לקובץ enhanced_validation_gui.py לפני EnhancedValidationGUI
 
 class GroundTruthEditor:
-    """עורך נתוני Ground Truth מתקדם"""
+    """עורך נתוני Ground Truth מתקדם עם ייצוא וייבוא"""
     
     def __init__(self, parent, template_data: Dict[str, Any], callback, source_manager: SourceDataManager):
         self.parent = parent
@@ -61,10 +61,10 @@ class GroundTruthEditor:
         self.create_editor_window()
     
     def create_editor_window(self):
-        """יצירת חלון עריכת Ground Truth"""
+        """יצירת חלון עריכת Ground Truth עם פיצ'רים מתקדמים"""
         self.window = tk.Toplevel(self.parent)
         self.window.title("Edit Ground Truth Data")
-        self.window.geometry("1200x700")
+        self.window.geometry("1200x750")
         self.window.transient(self.parent)
         self.window.grab_set()
         
@@ -83,24 +83,43 @@ class GroundTruthEditor:
         top_frame = ttk.Frame(self.window)
         top_frame.pack(fill=tk.X, padx=10, pady=5)
         
-        # בחירת תבנית קיימת
-        ttk.Label(top_frame, text="בחר תבנית שמורה:").pack(side=tk.LEFT, padx=(0, 5))
+        # שורה ראשונה - תבניות שמורות
+        templates_frame = ttk.Frame(top_frame)
+        templates_frame.pack(fill=tk.X, pady=(0, 5))
+        
+        ttk.Label(templates_frame, text="תבניות שמורות:").pack(side=tk.LEFT, padx=(0, 5))
         
         self.template_var = tk.StringVar()
         saved_sources = list(self.source_manager.get_saved_sources().keys())
-        self.template_combo = ttk.Combobox(top_frame, textvariable=self.template_var, 
+        self.template_combo = ttk.Combobox(templates_frame, textvariable=self.template_var, 
                                           values=saved_sources, state="readonly", width=20)
         self.template_combo.pack(side=tk.LEFT, padx=(0, 10))
         self.template_combo.bind('<<ComboboxSelected>>', self.load_template)
         
-        ttk.Button(top_frame, text="טען תבנית", 
+        ttk.Button(templates_frame, text="טען תבנית", 
                   command=self.load_selected_template).pack(side=tk.LEFT, padx=5)
         
-        # כפתורי פעולות עליונים
-        ttk.Button(top_frame, text="העתק הכל", 
-                  command=self.copy_all_data).pack(side=tk.RIGHT, padx=5)
-        ttk.Button(top_frame, text="הדבק הכל", 
-                  command=self.paste_all_data).pack(side=tk.RIGHT, padx=5)
+        # שורה שנייה - פעולות קובץ ונתונים
+        actions_frame = ttk.Frame(top_frame)
+        actions_frame.pack(fill=tk.X)
+        
+        # צד שמאל - פעולות קובץ
+        file_frame = ttk.LabelFrame(actions_frame, text="קבצים", padding="5")
+        file_frame.pack(side=tk.LEFT, padx=(0, 10))
+        
+        ttk.Button(file_frame, text="ייבוא מקובץ", 
+                  command=self.import_template_from_file, width=12).pack(side=tk.LEFT, padx=2)
+        ttk.Button(file_frame, text="ייצוא לקובץ", 
+                  command=self.export_template_to_file, width=12).pack(side=tk.LEFT, padx=2)
+        
+        # צד ימין - פעולות נתונים
+        data_frame = ttk.LabelFrame(actions_frame, text="נתונים", padding="5")
+        data_frame.pack(side=tk.RIGHT)
+        
+        ttk.Button(data_frame, text="העתק הכל", 
+                  command=self.copy_all_data, width=12).pack(side=tk.LEFT, padx=2)
+        ttk.Button(data_frame, text="הדבק הכל", 
+                  command=self.paste_all_data, width=12).pack(side=tk.LEFT, padx=2)
         
         # Frame עיקרי עם גלילה
         main_frame = ttk.Frame(self.window)
@@ -152,6 +171,110 @@ class GroundTruthEditor:
                   command=self.save_ground_truth).pack(side=tk.LEFT, padx=5)
         ttk.Button(action_frame, text="ביטול", 
                   command=self.window.destroy).pack(side=tk.LEFT, padx=5)
+    
+    def export_template_to_file(self):
+        """ייצוא התבנית הנוכחית לקובץ JSON"""
+        try:
+            # איסוף הנתונים הנוכחיים
+            ground_truth_data = self.collect_current_data()
+            
+            if not ground_truth_data or all(len(item) <= 1 for item in ground_truth_data):
+                messagebox.showwarning("אזהרה", "אין נתונים לייצוא")
+                return
+            
+            # בחירת מיקום השמירה
+            filename = filedialog.asksaveasfilename(
+                title="שמור תבנית כ-JSON",
+                defaultextension=".json",
+                filetypes=[("JSON files", "*.json"), ("All files", "*.*")],
+                initialfilename="ground_truth_template.json"
+            )
+            
+            if not filename:
+                return
+            
+            # הכנת נתונים מפורטים לייצוא
+            export_data = {
+                "template_info": {
+                    "created_at": datetime.now().isoformat(),
+                    "fields_count": len(self.template_data['fields']) - 1,  # מבלי 'line'
+                    "lines_count": len(ground_truth_data),
+                    "description": "Ground Truth Template exported from Advanced Validation Suite"
+                },
+                "ground_truth_data": ground_truth_data,
+                "fields_structure": {
+                    "available_fields": [f for f in self.template_data['fields'] if f != 'line'],
+                    "line_numbers": [item.get('line', i+1) for i, item in enumerate(ground_truth_data)]
+                }
+            }
+            
+            # שמירה לקובץ
+            with open(filename, 'w', encoding='utf-8') as f:
+                json.dump(export_data, f, ensure_ascii=False, indent=2)
+            
+            messagebox.showinfo("הצלחה", f"התבנית יוצאה בהצלחה לקובץ:\n{filename}")
+            
+        except Exception as e:
+            messagebox.showerror("שגיאה", f"שגיאה בייצוא התבנית: {str(e)}")
+
+    def import_template_from_file(self):
+        """ייבוא תבנית מקובץ JSON"""
+        try:
+            # בחירת קובץ לייבוא
+            filename = filedialog.askopenfilename(
+                title="טען תבנית מקובץ JSON",
+                filetypes=[("JSON files", "*.json"), ("All files", "*.*")]
+            )
+            
+            if not filename:
+                return
+            
+            # טעינת הקובץ
+            with open(filename, 'r', encoding='utf-8') as f:
+                imported_data = json.load(f)
+            
+            # בדיקת פורמט הקובץ
+            if isinstance(imported_data, dict) and 'ground_truth_data' in imported_data:
+                # פורמט מלא (עם metadata)
+                template_data = imported_data['ground_truth_data']
+                info = imported_data.get('template_info', {})
+                
+                # הצגת מידע על התבנית
+                created_at = info.get('created_at', 'לא ידוע')
+                fields_count = info.get('fields_count', 'לא ידוע')
+                lines_count = info.get('lines_count', len(template_data))
+                
+                message = f"מידע על התבנית:\nנוצרה: {created_at}\nשדות: {fields_count}\nשורות: {lines_count}\n\nהאם לטעון תבנית זו?"
+                
+                if not messagebox.askyesno("אשר ייבוא", message):
+                    return
+                    
+            elif isinstance(imported_data, list):
+                # פורמט פשוט (רשימת נתונים בלבד)
+                template_data = imported_data
+                
+            elif isinstance(imported_data, dict) and any(key in imported_data for key in ['main_items', 'ground_truth', 'data']):
+                # פורמט Ground Truth רגיל
+                if 'ground_truth' in imported_data:
+                    template_data = imported_data['ground_truth']
+                elif 'main_items' in imported_data:
+                    template_data = imported_data['main_items']
+                elif 'data' in imported_data:
+                    template_data = imported_data['data']
+                else:
+                    raise ValueError("פורמט קובץ לא מזוהה")
+            else:
+                raise ValueError("פורמט קובץ לא תקין")
+            
+            # טעינת הנתונים לממשק
+            if isinstance(template_data, list) and template_data:
+                self.load_data_to_entries(template_data)
+                messagebox.showinfo("הצלחה", f"התבנית נטענה בהצלחה מהקובץ:\n{Path(filename).name}")
+            else:
+                messagebox.showwarning("אזהרה", "הקובץ לא כולל נתונים תקינים")
+                
+        except Exception as e:
+            messagebox.showerror("שגיאה", f"שגיאה בייבוא התבנית: {str(e)}")
     
     def create_field_entries(self, parent):
         """יצירת שדות עריכה"""
@@ -401,27 +524,6 @@ class GroundTruthEditor:
         self.callback(ground_truth_data)
         self.window.destroy()
 
-# הוסף את השיטות האלה למחלקה EnhancedValidationGUI:
-
-    def edit_ground_truth(self):
-        """עריכת Ground Truth - פונקציה מעודכנת"""
-        if not self.processor.loaded_files:
-            messagebox.showwarning("אזהרה", "טען קבצי JSON תחילה")
-            return
-        
-        template_data = self.processor.extract_all_fields_template()
-        editor = GroundTruthEditor(self.root, template_data, self.on_ground_truth_saved, self.source_manager)
-
-    def on_ground_truth_saved(self, ground_truth_data):
-        """טיפול בשמירת Ground Truth"""
-        success = self.processor.load_ground_truth(ground_truth_data=ground_truth_data)
-        if success:
-            gt_count = len(ground_truth_data)
-            self.gt_status_var.set(f"נתוני מקור נשמרו: {gt_count} שורות")
-            self.update_run_button()
-            self.status_var.set("נתוני המקור נשמרו")
-        else:
-            messagebox.showerror("שגיאה", "שגיאה בשמירת נתוני המקור")
 
 class EnhancedValidationGUI:
     """GUI בסיסי לוולידציה"""
@@ -560,18 +662,103 @@ class EnhancedValidationGUI:
         
         # טאב 5: דוח מלא
         self.create_report_tab()
+    
+    def create_summary_tab(self):
+        """יצירת טאב סיכום"""
+        summary_frame = ttk.Frame(self.notebook)
+        self.notebook.add(summary_frame, text="סיכום")
+        
+        # יצירת TreeView לסיכום
+        columns = ('accuracy', 'type')
+        self.summary_tree = ttk.Treeview(summary_frame, columns=columns, show='tree headings', height=10)
+        
+        # הגדרת כותרות עמודות
+        self.summary_tree.heading('#0', text='קובץ')
+        self.summary_tree.heading('accuracy', text='דיוק')
+        self.summary_tree.heading('type', text='סוג')
+        
+        # הגדרת רוחב עמודות
+        self.summary_tree.column('#0', width=200)
+        self.summary_tree.column('accuracy', width=100)
+        self.summary_tree.column('type', width=100)
+        
+        # הוספת scrollbar
+        summary_scrollbar = ttk.Scrollbar(summary_frame, orient="vertical", command=self.summary_tree.yview)
+        self.summary_tree.configure(yscrollcommand=summary_scrollbar.set)
+        
+        # מיקום הרכיבים
+        self.summary_tree.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        summary_scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+    def create_expanded_table_tab(self):
+        """יצירת טאב טבלה מורחבת"""
+        expanded_frame = ttk.Frame(self.notebook)
+        self.notebook.add(expanded_frame, text="טבלה מורחבת")
+        
+        # יצירת טקסט עם scrollbar
+        self.expanded_text = scrolledtext.ScrolledText(expanded_frame, wrap=tk.WORD, height=20)
+        self.expanded_text.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
+
+    def create_business_validation_tab(self):
+        """יצירת טאב ווליידציה עסקית"""
+        business_frame = ttk.Frame(self.notebook)
+        self.notebook.add(business_frame, text="ווליידציה עסקית")
+        
+        # יצירת טקסט עם scrollbar
+        self.business_text = scrolledtext.ScrolledText(business_frame, wrap=tk.WORD, height=20)
+        self.business_text.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
+
+    def create_combined_analysis_tab(self):
+        """יצירת טאב השוואה משולבת"""
+        combined_frame = ttk.Frame(self.notebook)
+        self.notebook.add(combined_frame, text="השוואה משולבת")
+        
+        # יצירת טקסט עם scrollbar
+        self.combined_text = scrolledtext.ScrolledText(combined_frame, wrap=tk.WORD, height=20)
+        self.combined_text.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
+
+    def create_report_tab(self):
+        """יצירת טאב דוח מלא"""
+        report_frame = ttk.Frame(self.notebook)
+        self.notebook.add(report_frame, text="דוח מלא")
+        
+        # יצירת טקסט עם scrollbar
+        self.report_text = scrolledtext.ScrolledText(report_frame, wrap=tk.WORD, height=20)
+        self.report_text.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
+    
     def on_method_changed(self):
-        """טיפול בשינוי שיטת וולידציה"""
+        """טיפול בשינוי שיטת ווליידציה"""
         method = ValidationMethod(self.validation_method_var.get())
         self.processor.set_validation_method(method)
         
-        # הצגה/הסתרה של Ground Truth לפי השיטה
+        # הצבה/הסתרה של Ground Truth לפי השיטה
         if method == ValidationMethod.BUSINESS_LOGIC:
             self.gt_frame.pack_forget()
         else:
-            self.gt_frame.pack(fill=tk.X, pady=(0, 10), before=self.gt_frame.master.children['!labelframe3'])
+            # תיקון הבעיה: הסרת הפרמטר before הבעייתי
+            self.gt_frame.pack(fill=tk.X, pady=(0, 10))
         
         self.update_run_button()
+    
+    def edit_ground_truth(self):
+        """עריכת Ground Truth - פונקציה מעודכנת"""
+        if not self.processor.loaded_files:
+            messagebox.showwarning("אזהרה", "טען קבצי JSON תחילה")
+            return
+        
+        template_data = self.processor.extract_all_fields_template()
+        editor = GroundTruthEditor(self.root, template_data, self.on_ground_truth_saved, self.source_manager)
+
+    def on_ground_truth_saved(self, ground_truth_data):
+        """טיפול בשמירת Ground Truth"""
+        success = self.processor.load_ground_truth(ground_truth_data=ground_truth_data)
+        if success:
+            gt_count = len(ground_truth_data)
+            self.gt_status_var.set(f"נתוני מקור נשמרו: {gt_count} שורות")
+            self.update_run_button()
+            self.status_var.set("נתוני המקור נשמרו")
+        else:
+            messagebox.showerror("שגיאה", "שגיאה בשמירת נתוני המקור")
     
     def load_json_files(self):
         """טעינת קבצי JSON"""
